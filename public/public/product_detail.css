@@ -1,0 +1,33 @@
+.des-product {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.table-main2 {
+    margin-top: 10px;
+}
+
+.table-main-des {
+    width: 100%;
+    height: auto;
+    border: 1px solid #C1C1C1;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.table-main-img {
+    width: 50%;
+    height: auto;
+}
+
+.images-product-main {
+    width: 70px;
+}
+
+@media only screen and (max-width: 600px) {
+    .table-main-img .table-main-img {
+        height: 100px;
+        float: left;
+        width: 30%;
+    }
+}
