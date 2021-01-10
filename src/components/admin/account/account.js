@@ -17,7 +17,8 @@ class account extends Component {
             uidAuthentication:"",
             idAdmin:"",
             date:"",
-            imagesAdmin:""
+            imagesAdmin:"",
+            levelAdmin:""
         }
     }
     onChange=(e)=>{
@@ -27,7 +28,7 @@ class account extends Component {
     }
     onSubmit=(e)=>{
         e.preventDefault();
-        var {displayName,userEmail,phone,address,idAdmin,uidAuthentication,date,rule,imagesAdmin}=this.state;
+        var {displayName,userEmail,phone,address,idAdmin,uidAuthentication,date,rule,imagesAdmin,levelAdmin}=this.state;
 
         var adminUser={
             displayName,
@@ -36,14 +37,14 @@ class account extends Component {
             address,
             idAdmin,
             uidAuthentication,date,rule,
-            imagesAdmin
+            imagesAdmin,levelAdmin
 
         }
         this.props.updateAdmin(adminUser);
     }
     onSubmitImages=(e)=>{
         e.preventDefault();
-        var {displayName,userEmail,phone,address,idAdmin,uidAuthentication,date,rule,imagesAdmin}=this.state;
+        var {displayName,userEmail,phone,address,idAdmin,uidAuthentication,date,rule,imagesAdmin,levelAdmin}=this.state;
 
         var adminUser={
             displayName,
@@ -52,7 +53,8 @@ class account extends Component {
             address,
             idAdmin,
             uidAuthentication,date,rule,
-            imagesAdmin
+            imagesAdmin,
+            levelAdmin
 
         }
         this.props.updateImagesAdmin(adminUser);
@@ -69,7 +71,8 @@ class account extends Component {
                 uidAuthentication:UserAdmin.uidAuthentication,
                 idAdmin:UserAdmin.idAdmin,
                 date:UserAdmin.date,
-                imagesAdmin:UserAdmin.imagesAdmin
+                imagesAdmin:UserAdmin.imagesAdmin,
+                levelAdmin:UserAdmin.levelAdmin
             });
         }else{
             this.setState({
@@ -81,7 +84,8 @@ class account extends Component {
                 uidAuthentication:"",
                 idAdmin:"",
                 date:"",
-                imagesAdmin:""
+                imagesAdmin:"",
+                levelAdmin:""
             });
         }
     }
@@ -97,7 +101,8 @@ class account extends Component {
                 uidAuthentication:nextProps.UserAdmin.uidAuthentication,
                 idAdmin:nextProps.UserAdmin.idAdmin,
                 date:nextProps.UserAdmin.date,
-                imagesAdmin:nextProps.UserAdmin.imagesAdmin
+                imagesAdmin:nextProps.UserAdmin.imagesAdmin,
+                levelAdmin:nextProps.UserAdmin.levelAdmin
             });
         }else{
             this.setState({
@@ -109,7 +114,8 @@ class account extends Component {
                 uidAuthentication:"",
                 idAdmin:"",
                 date:"",
-                imagesAdmin:""
+                imagesAdmin:"",
+                levelAdmin:""
             });
         }
     }
@@ -123,13 +129,12 @@ class account extends Component {
     }
     render() {
         var {displayName,userEmail,phone,address,imagesAdmin}=this.state;
-        
         return (
             <div className="main-right">
              <div className="">
                 <p className="table-text"><i className="far fa-calendar-alt" /> UserAdmin</p>
                 <div className="hidden-table">
-                    
+
                         <div className="account-admin-container">
                             <div className="account-admin">
                                 <div className="title-images-admin">

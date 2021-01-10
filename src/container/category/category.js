@@ -8,33 +8,63 @@ import { firestoreConnect } from 'react-redux-firebase';
 import * as action from './../../actions/category';
 import { DialogContent } from '@material-ui/core';
 import { CircularProgress,Dialog } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
+
 class category extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            currentPage:1,
+            currentPageNew:10
+        }
+    }
     render() {
+        // document.title="Quản lý categorys ... ";
         var {categoryStore,CategoryMessage}=this.props;
         if(CategoryMessage.Category_Update_Success||CategoryMessage.Category_Delete_Success){
-            setTimeout(() => {
-                this.props.resetMessage();
-            }, 1000);
+                setTimeout(() => {
+                    this.props.resetMessage();
+                }, 1000);
         }
-        if(CategoryMessage.Category_Delete_Request||CategoryMessage.Category_Update_Request){
-            return <Dialog open={true}>
+        return (
+            <>
+            <Dialog open={CategoryMessage.Category_Delete_Request||CategoryMessage.Category_Update_Request}>
                         <DialogContent>
                             <CircularProgress aria-labelledby="simple-dialog-title" />
                         </DialogContent>
-                    </Dialog>;
-        }
-        return (
-            <Category
+                    </Dialog>
+                    <Category
                 showCateGory={this.showCateGory(categoryStore)}
                 CategoryMessage={CategoryMessage}
+                showPagination={this.showPagination(categoryStore)}
             />
+            </>
         )
     }
-    showCateGory=(data)=>{
+    showPagination=(category)=>{
+        var {currentPage,currentPageNew}=this.state;
+       if(category){
+        return <Pagination 
+            page={currentPage} 
+            count={Math.ceil(category.length/currentPageNew)}
+            size="small"
+            onChange={this.onChangePagination}
+        />
+       }
+    }
+    onChangePagination=(e,value)=>{
+        this.setState({
+            currentPage:value
+        });
+    }
+    showCateGory=(datas)=>{
         var result='';
-      
-           if(data){
-            result=(data && data.map((data,key)=>{
+           if(datas){
+            var {currentPage,currentPageNew}=this.state;
+            var pageLast=currentPage*currentPageNew;
+            var pagaFirst=pageLast - currentPageNew;
+            datas=datas.slice(pagaFirst,pageLast);
+            result=(datas && datas.map((data,key)=>{
                 return <CategoryItem 
                     category={data}
                     key={key}
@@ -49,8 +79,7 @@ class category extends Component {
                                     <CircularProgress aria-labelledby="simple-dialog-title" />
                                 </DialogContent>
                             </Dialog>;
-           }   
-        
+           }
         return result;
     }
     onDelete=(category)=>{
@@ -61,6 +90,7 @@ class category extends Component {
     }
     componentDidMount(){
         this.props.resetMessage();
+        document.title="Quản lý category... ";
     }
 }
 const mapStateToProps=(state)=>{
@@ -84,7 +114,7 @@ const dispatchToProps=(dispatch,props)=>{
 }
 export default  
 compose(connect(mapStateToProps,dispatchToProps),
-firestoreConnect(ownProps=>[
+firestoreConnect(own=>[
     {
         collection:"category"
     }

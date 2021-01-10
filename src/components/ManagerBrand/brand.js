@@ -12,7 +12,6 @@ import { Dropdown } from 'react-bootstrap';
      }
     render() {
         var {BrandMessage}=this.props;
-        
         if(BrandMessage.Brand_Success){
             toast.success("Thêm thành công !!!")
         }
@@ -20,11 +19,10 @@ import { Dropdown } from 'react-bootstrap';
             toast.error("Xóa thành công !!!");
         }
         if(BrandMessage.Brand_Update_Success){
-            toast.success("Update thành công !!!");
+            toast.info("Update thành công !!!");
         }
         return (
            <>
-            
                 <div className="main-right">
                     <div className="main-content-table">
                         <div className="form-top-product">
@@ -39,28 +37,26 @@ import { Dropdown } from 'react-bootstrap';
                                     <Dropdown.Menu>
                                         <Dropdown.Item  onClick={()=>this.onSort('name',1)}>Từ A-z</Dropdown.Item>
                                         <Dropdown.Item  onClick={()=>this.onSort('name',-1)}>Từ Z-A</Dropdown.Item>
-                                        
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </div>
                         </div>
-                        
                         <div className="hidden-table">
                         <table className="table-main">
                             <thead>
                             <tr><th className="th-main-table-i">ID</th>
                                 <th className="th-main-table-n">Tên Hãng</th>
-                                
                                 <th className="th-main-table-s">options</th>
                             </tr></thead>
-                            
                            {this.props.showBrand}
                         </table>
                         </div>
                     </div>
+                    <div className="pagination-button">
+                        {this.props.showPagination}
+                    </div>
                 </div>
            </>
-            
         )
     }
 }

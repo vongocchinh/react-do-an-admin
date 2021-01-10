@@ -13,7 +13,6 @@ import React, { Component } from 'react'
                         <th className="th-main-table-n">Tên Slide</th>
                         <th className="th-main-table-n">Ảnh slide</th>
                         <th className="th-main-table-n">Tên San pham</th>
-                        
                         <th className="th-main-table-s">Trạng Thái</th>
                         <th className="th-main-table-o" />
                         </tr></thead>
@@ -22,6 +21,9 @@ import React, { Component } from 'react'
                     </tbody>
                     </table>
                 </div>
+                </div>
+                <div className="pagination-button">
+                    {this.props.showPagination}
                 </div>
             </div>
         )

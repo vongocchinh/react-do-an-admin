@@ -4,7 +4,6 @@ import * as Format from '../../../conStants/format';
 import CHUKY from './../../images/chu-ky-wikici.png';
 class ComponentToPrint extends Component {
     showBillProduct=(products)=>{
-        
         var result=null;
         if(products){
             result=products.map((product,key)=>{
@@ -31,9 +30,7 @@ class ComponentToPrint extends Component {
         return result;
     }
     render() {
-        
-        var {name,date,emails,phone,address,huyen,tinh,xa,itemProduct}=this.props;
-
+        var {name,date,gmail,phone,address,huyen,tinh,xa,itemProduct}=this.props;
         return (
            <>
             <div className="container-bill-print">
@@ -64,7 +61,7 @@ class ComponentToPrint extends Component {
                             <p><strong>Khách Hàng:</strong></p>
                             <p className="title-p-title-p">Tên Người Nhận: <i>{name}</i></p>
                             <p className="title-p-title-p">Số Điện Thoại: <i>{phone}</i></p>
-                            <p className="title-p-title-p">Email: <i>{emails}</i></p>
+                            <p className="title-p-title-p">Email: <i>{gmail}</i></p>
                         </div>
                         <div className="bill-print-main-3">
                             <p><strong><u>Tổng Đơn Hàng:</u></strong></p>
@@ -133,7 +130,7 @@ class ComponentToPrint extends Component {
 }
  class inBillItem extends Component {
     render() {
-        var {name,date,userMail,phone,address,huyen,tinh,xa,itemProduct}=this.props;
+        var {name,date,email,gmail,phone,address,huyen,tinh,xa,itemProduct}=this.props;
         return (
             <div>
             <div className="button-bill-print">
@@ -145,7 +142,8 @@ class ComponentToPrint extends Component {
             <ComponentToPrint 
                 name={name}
                 date={date}
-                userMail={userMail}
+                email={email}
+                gmail={gmail}
                 phone={phone}
                 address={address}
                 huyen={huyen}

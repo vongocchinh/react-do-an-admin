@@ -21,7 +21,6 @@ export default class billIte extends Component {
                     <Link to="/bill" className="option-table">Chi tiết</Link>
                 </td>
             </tr>
-            
             </tbody>
         )
     }

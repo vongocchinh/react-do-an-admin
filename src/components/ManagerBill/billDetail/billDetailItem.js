@@ -1,33 +1,53 @@
 import React, { Component } from 'react'
 import * as Format from './../../../conStants/format';
+import { Link } from 'react-router-dom';
 
 export default class billDetailItem extends Component {
+    showProductBill=(products)=>{
+        var result=null;
+        if(products){
+            result=products.map((product,key)=>{
+                return (
+                    <tr key={key} >
+                        <td>
+                            {product.cartProduct.name}
+                        </td>
+                        <td>
+                            {product.quantity}
+                        </td>
+                        <td>
+                            {Format.FORMAT_CURRENT((product.cartProduct.price-(product.cartProduct.price*(product.cartProduct.priceSale/100)))) } vnđ
+                        </td>
+                        <td>
+                            {Format.FORMAT_CURRENT(Format.totalProduct(product.quantity,product.cartProduct))} vnđ
+                        </td>
+                    </tr>
+                )
+            })
+        }
+        return result;
+    }
     render() {
-        var {bill,stt,name,date,userMail,phone,address,itemProduct}=this.props;
-        
+        var {id,bill,stt,name,date,phone,itemProduct}=this.props;
         return (
            <>
-                <tr>
+           <tr>
                 <td>{stt}</td>
                 <td>{name}</td>
                 <td>{new Date(date.seconds*1000).toDateString()}</td>
-                <td>{userMail}</td>
                 <td>{phone}</td>
-                <td>{address}</td>
+                {this.showProductBill(itemProduct)}
                 <td>
-                    {itemProduct.cartProduct.name}
+                    {bill.rulesBill===1?"Chưa Xác Nhận":"Đã Xác Nhận"}
                 </td>
-                <td>{itemProduct.quantity}</td>
-                <td>{Format.FORMAT_CURRENT((itemProduct.cartProduct.price-(itemProduct.cartProduct.price*(itemProduct.cartProduct.priceSale/100)))) } vnđ</td>
-                <td>{Format.FORMAT_CURRENT(Format.totalProduct(itemProduct.quantity,itemProduct.cartProduct))} vnđ</td>
                 <td>
-                    {bill.rulesBill?"Đã Xác Nhận":"Chưa Xác Nhận"}
+                    {bill.rulesBill!== 1 ? <Link target="_blank" className="link-inBill" to={"/inBill/"+id}>Xuất Đơn</Link>
+                    :
+                   ''
+                    }
                 </td>
-                
             </tr>
-            
            </>
-                   
         )
     }
 }

@@ -49,7 +49,6 @@ export default class categoryItem extends Component {
             categoryId:this.state.CategoryId
         }
         this.props.updateCategory(CategoryNew);
-        
     }
     UNSAFE_componentWillMount(){
         var {category}=this.props;
@@ -66,7 +65,6 @@ export default class categoryItem extends Component {
         }
     }
     UNSAFE_componentWillReceiveProps(nextProps){
-        
         if(nextProps.category&&nextProps){
             this.setState({
                 CategoryName:nextProps.category.categoryName,
@@ -100,14 +98,12 @@ export default class categoryItem extends Component {
             <tr>
                 <td>{keys++}</td>
                 <td>{category.categoryName}</td>
-                
                 <td className="option">
                     <button style={{border:"none",outline:"none",backgroundColor:"white"}}  onClick={this.onDelete}> <img alt="###" src={IconDe} /></button>
                     {/* <Link to={"/"+"update-category"+"/"+category.id+"/"+Format.to_slug(category.categoryName)} ><img alt="###" src={IconU} /></Link> */}
                     <span onClick={this.onUpdate}><img alt="###" src={IconU} /></span>
                 </td>
             </tr>
-            
             </tbody>
             <Dialog
                     open={this.state.open}
@@ -117,7 +113,6 @@ export default class categoryItem extends Component {
                     aria-describedby="alert-dialog-slide-description"
                 >
                      <DialogTitle id="form-dialog-title">Update</DialogTitle>
-                    
                         <DialogContent>
                         <DialogContentText>
                             To update to this website, please enter your name  here. We will send updates
@@ -141,7 +136,6 @@ export default class categoryItem extends Component {
                                 Update
                             </Button>
                         </DialogActions>
-                    
                 </Dialog>
                 <Dialog
                     open={this.state.openDelete}

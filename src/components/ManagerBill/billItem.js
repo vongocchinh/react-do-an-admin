@@ -1,49 +1,46 @@
 import React, { Component } from 'react';
 import * as Format from './../../conStants/format';
 import { Link } from 'react-router-dom';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-export default class billItem extends Component {
-    
+ class billItem extends Component {
+
     onClick=()=>{
-      
-      this.props.rulesBill(this.props.bill);
+      // this.props.rulesBill(this.props.bill);
       this.props.updateQuantity(this.props.bill.cart,this.props.bill);
-      
+
+    }
+    onClickGo=()=>{
+      this.props.rulesBillGo(this.props.bill);
+    }
+    onClickSuccess=()=>{
+      this.props.rulesBillSuccess(this.props.bill);
     }
     onDelete=()=>{
       this.props.onDelete(this.props.bill);
     }
     render() {
         var {bill,stt}=this.props;
-        
         return (
-            
                 <tr>
-                  <td>{stt}</td>
+                  <td>{stt+1}</td>
                   <td>{bill.name}</td>
                   <td>{Format.quantityBill(bill.cart)}</td>
                   <td>{new Date(bill.date.seconds*1000).toDateString()}</td>
-                  <td>{bill.userMail}</td>
+                  <td>{bill.email}</td>
                   <td>{bill.phone}</td>
                   <td>{bill.address}</td>
                   <td>
                     <Link to={"/bill-detail/"+bill.id+".html"}  className="option-table">chi tiết</Link>
                   </td>
                   <td className="option">
-                      
-                      <FormControl size="small">
-                        <Select style={{fontSize:"13px"}} value={bill.rulesBill} id="grouped-select">
-                            <MenuItem onClick={this.onClick} value={true}>Xác Nhận</MenuItem>
-                            
-                            {bill.rulesBill===false ?(<MenuItem value={false}>Chưa Xác Nhận</MenuItem>):''}
-                            {bill.rulesBill?(<MenuItem  onClick={this.onDelete}>Xóa</MenuItem>):''}
-                            
-                        </Select>
-                    </FormControl>
+                   <span >
+                      {bill.rulesBill===1 ?(<div style={{marginTop:"1px"}} className="option-table" onClick={this.onClick} >Xác Nhận Đơn Hàng</div>):''}
+                      {bill.rulesBill===4?(<div style={{marginTop:"1px"}} className="option-table" onClick={this.onDelete}>Xóa</div>):''}
+                      {bill.rulesBill===2 ?(<div style={{marginTop:"1px"}} className="option-table" onClick={this.onClickGo} >Vận chuyển</div>):''}
+                      {bill.rulesBill===3 ?(<div style={{marginTop:"1px"}} className="option-table" onClick={this.onClickSuccess} >Đã Giao</div>):''}
+                   </span>
                   </td>
                 </tr>
         )
     }
 }
+export default billItem;

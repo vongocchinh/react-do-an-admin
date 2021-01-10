@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
  class inBill extends Component {
     render() {
-      
+        console.log(this.props.showInBill);
         return (
             <>
                {this.props.showInBill}

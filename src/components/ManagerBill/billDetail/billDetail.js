@@ -9,15 +9,14 @@ export default class billDetail extends Component {
               <div className="main-content-table-top">
                 <p className="table-text"><i className="far fa-calendar-alt" /> Đơn Hàng Chi Tiết</p>
                 <ReactHTMLTableToExcel
-                id="test-table-xls-button"
-                className="download-table-xls-button"
-                table="table-excel-html"
-                filename="tablexls"
-                sheet="tablexls"
-                buttonText="Excels"
+                  id="test-table-xls-button"
+                  className="download-table-xls-button"
+                  table="table-excel-html"
+                  filename="tablexls"
+                  sheet="tablexls"
+                  buttonText="Excels"
                 />
               </div>
-              
               <div className="hidden-table">
                 <table className="table-main" id="table-excel-html">
                   <thead>
@@ -25,14 +24,10 @@ export default class billDetail extends Component {
                       <th className="th-main-table-i">ID</th>
                       <th className="th-main-table-o">Tên Người Đặt</th>
                       <th className="th-main-table-d">Ngày Đặt Hàng</th>
-                      <th className="th-main-table-d">Mail</th>
                       <th className="th-main-table-i">Phone</th>
-                      <th className="th-main-table-d">address</th>
-                      <th className="th-main-table-d">Sản Phẩm</th>
-                      <th className="th-main-table-i">Số lượng</th>
-                      <th className="th-main-table-d">Tiền</th>
-                      <th className="th-main-table-d">Tổng</th>
+                      <th style={{width:"500px"}} className="th-main-table-d">Sản Phẩm</th>
                       <th className="th-main-table-d">Xác nhận</th>
+                      <th className="th-main-table-d">Action</th>
                     </tr>
                   </thead>
                   <tbody>

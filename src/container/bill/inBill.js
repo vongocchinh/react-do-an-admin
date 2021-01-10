@@ -29,13 +29,14 @@ import InBillItem from './../../components/ManagerBill/printBill/inBillItem';
                         stt={key}
                         name={name}
                         date={date}
-                        emails={email}
+                        email={email}
                         phone={phone}
                         address={address}
                         bill={bill}
                         huyen={huyen}
                         tinh={tinh}
                         xa={xa}
+                        gmail={email}
                 />
 
                 }

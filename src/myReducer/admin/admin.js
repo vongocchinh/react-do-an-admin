@@ -6,7 +6,12 @@ var initialState={
     Login_Admin_Error:false,
     Logout_Admin_In:false,
     Logout_Admin_Success:false,
-    Logout_Admin_Error:false
+    Logout_Admin_Error:false,
+    REGISTER_ADMIN_IN:false,
+    REGISTER_ADMIN_SUCCESS:false,
+    UPDATE_ADMIN_SUCCESS:false,
+    UPDATE_ADMIN_IN:false,
+    UPDATE_ADMIN_ERO:false,
 };
 var myReducer=(state=initialState,actions)=>{
     switch(actions.type){
@@ -74,6 +79,45 @@ var myReducer=(state=initialState,actions)=>{
                 Logout_Admin_Error:true
             }
         return state;
+        case types.REGISTER_IN_ADMIN:
+            state={
+                REGISTER_ADMIN_IN:true,
+                REGISTER_ADMIN_SUCCESS:false,
+            }
+            return state;
+        case types.REGISTER_SUCCESS_ADMIN:
+            state={
+                REGISTER_ADMIN_IN:false,
+                REGISTER_ADMIN_SUCCESS:true,
+            }
+            return state;
+        case types.UPDATE_ADMIN_IN:
+            state={
+                UPDATE_ADMIN_SUCCESS:false,
+                UPDATE_ADMIN_IN:true,
+                UPDATE_ADMIN_ERO:false,
+            }
+            return state;
+        case types.UPDATE_ADMIN_SUCCESS:
+            state={
+                UPDATE_ADMIN_SUCCESS:true,
+                UPDATE_ADMIN_IN:false,
+                UPDATE_ADMIN_ERO:false,
+            }
+            return state;
+        case types.UPDATE_ADMIN_ERO:
+            state={
+                UPDATE_ADMIN_SUCCESS:false,
+                UPDATE_ADMIN_IN:false,
+                UPDATE_ADMIN_ERO:true,
+            }
+            return state;
+        case types.RESET_REGISTER_ADMIN:
+            state={
+                REGISTER_ADMIN_IN:false,
+                REGISTER_ADMIN_SUCCESS:false,
+            }
+            return state;
         default :return state;
     }
 

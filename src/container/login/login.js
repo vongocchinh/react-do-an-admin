@@ -17,7 +17,10 @@ class login extends Component {
         document.title='Login admin ';
         var {AdminMessage}=this.props;
         if(AdminMessage.Login_Admin_Success){
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1400);
+
             setTimeout(() => {
                 return <>
                 <Redirect to="/" />
@@ -25,7 +28,7 @@ class login extends Component {
             }, 2000);
         }
         if(AdminMessage.Logout_Admin_Success){
-            toast.success('Đăng Xuất Thành Công !')
+            toast.dark('Đăng Xuất Thành Công !')
         }
         if(AdminMessage.Login_Admin_Error){
             toast.warning('Đăng Nhập Thất Bại !')
@@ -48,6 +51,7 @@ class login extends Component {
         this.props.login(user);
     }
     componentDidMount(){
+        document.title="Login dashboard admin ...";
         this.props.GetAdmin();
         var user=JSON.parse(localStorage.getItem('userAdmin'));
         if(user){

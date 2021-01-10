@@ -19,7 +19,6 @@ import eyeOff from '../../images/lockOff.png';
         this.setState({
             [e.target.name]:e.target.value
         });
-       
     }
     onChangePass=(e)=>{
         if(this.state.passWord===''||this.state.passWord===null||this.state.passWord=== undefined){
@@ -51,12 +50,11 @@ import eyeOff from '../../images/lockOff.png';
     render() {
         var {AdminMessage}=this.props;
         var {isPassWord,isShowIcon}=this.state;
-        console.log(this.state.passWord);
         return (
             <form onSubmit={this.onSubmit}>
                 <div className="form-login-admin-input">
                     <span className="title-name-input">UserName</span>
-                    <input autoComplete="on" required onChange={this.onChange} name="userName" type="email" className="form-control-input"   />
+                    <input autoComplete="off" required onChange={this.onChange} name="userName" type="email" className="form-control-input"   />
                 </div>
                 <div className="form-login-admin-input">
                     <span className="title-name-input">PassWord</span>
@@ -68,7 +66,7 @@ import eyeOff from '../../images/lockOff.png';
 
                    <div className="form-login-admin-submit">
                         <Button style={{outline:"none"}} type="submit" className="btnSubmit-admin" >Đăng Nhập</Button>
-                        {/* <p><Link to="/register">Đăng Kí</Link></p> */}
+
                    </div>
                    {AdminMessage.Login_Admin_Error?<p className="error-login-admin">Đăng Nhập Thất Bại !!!</p>: ''}
             </form>

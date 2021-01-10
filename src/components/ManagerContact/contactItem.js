@@ -10,7 +10,7 @@ import React, { Component } from 'react'
         <>
                 <tbody>
                 <tr>
-                    <td>{stt++}</td>
+                    <td>{stt+1}</td>
                     <td>{contact.firstName}</td>
                     <td>{contact.lastName}</td>
                     <td>{contact.email}</td>

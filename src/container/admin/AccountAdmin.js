@@ -7,17 +7,18 @@ import { Dialog, DialogContent, CircularProgress } from '@material-ui/core';
 import AccountAdmin from './../../components/admin/account/accountAdmin';
  class admin extends Component {
     render() {
-        var {UserAdmin,AdminStore}=this.props;
-        if(AdminStore.UPDATE_ADMIN_SUCCESS){
+        var {UserAdmin,AdminMessage}=this.props;
+        // console.log(UserAdmin);
+        if(AdminMessage.UPDATE_ADMIN_SUCCESS){
             toast.dark("Chinh Sửa Thành Công .");
             window.location.reload();
         }
-        if(AdminStore.UPDATE_ADMIN_ERO){
+        if(AdminMessage.UPDATE_ADMIN_ERO){
             toast.dark("Chinh Sửa Thất Bại .");
         }
         return (
             <>
-                <Dialog open={AdminStore.UPDATE_ADMIN_IN}>
+                <Dialog open={AdminMessage.UPDATE_ADMIN_IN}>
                     <DialogContent>
                         <CircularProgress aria-labelledby="simple-dialog-title" />
                     </DialogContent>
@@ -51,7 +52,7 @@ import AccountAdmin from './../../components/admin/account/accountAdmin';
 const mapStateToProps=(state)=>{
     return {
         UserAdmin:state.UserAdmin,
-        AdminStore:state.AdminMessage
+        AdminMessage:state.AdminMessage
     }
 }
 const dispatchToProps=(dispatch,props)=>{

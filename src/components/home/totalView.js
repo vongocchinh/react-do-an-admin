@@ -9,7 +9,7 @@ export default class totalView extends Component {
                     <div className="col-main col-main0">
                         <h4>Sản Phẩm Sale</h4>
                         <hr/>
-                        <Link to="/bill" className="detail-logo-main" >
+                        <Link to="/productSale" className="detail-logo-main" >
                             <i className='fa fa-pie-chart'></i>
                             <p>{this.props.sale} &#8594;</p>
                         </Link>
@@ -45,9 +45,6 @@ export default class totalView extends Component {
                         </Link>
                     </div>
                 </div>
-               
-                
-                
             </div>
         )
     }

@@ -32,6 +32,9 @@ import React, { Component } from 'react'
                             {this.props.showContact}
                         </table>
                         </div>
+                        <div className="pagination-button">
+                            {this.props.showPagination}
+                        </div>
                         </div>
                         </div>
             </>

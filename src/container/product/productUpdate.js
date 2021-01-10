@@ -48,6 +48,7 @@ import { DialogContent } from '@material-ui/core';
                         showBrand={this.showBrand(this.props.brandStore)}
                         showCategory={this.showCategory(this.props.categoryStore)}
                         updateProduct={this.updateProduct}
+                        updateImagesProduct={this.updateImagesProduct}
                      />
             }
         }))
@@ -55,6 +56,9 @@ import { DialogContent } from '@material-ui/core';
     }
     updateProduct=(productUpdate)=>{
         this.props.updateProduct(productUpdate);
+    }
+    updateImagesProduct=(productUpdateImages)=>{
+        this.props.updateImagesProduct(productUpdateImages);
     }
     showBrand=(data)=>{
         var result='';
@@ -84,6 +88,9 @@ const dispatchToProps=(dispatch,props)=>{
        
         updateProduct:(productUpdate)=>{
             dispatch(actions.UPDATE_PRODUCT_REQUEST(productUpdate));
+        },
+        updateImagesProduct:(updateImagesProduct)=>{
+            dispatch(actions.updateImagesProduct(updateImagesProduct));
         }
     }
 }

@@ -3,12 +3,26 @@ import { Switch, Button } from '@material-ui/core';
 import {Rating} from '@material-ui/lab';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { EditorState,convertToRaw } from 'draft-js';
+import { convertToRaw, convertFromRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
-
+const content = {
+    entityMap: {},
+    blocks: [
+      {
+        key: "637gr",
+        text: "Initialized from content state.",
+        type: "unstyled",
+        depth: 0,
+        inlineStyleRanges: [],
+        entityRanges: [],
+        data: {}
+      }
+    ]
+  };
 class productForm extends Component {
     constructor(props) {
         super(props);
+        const editorState = convertFromRaw(content);
         this.state={
             brand:'hQQ2jBnPjvilkwB3rl10',
             category:'VOuvvetUI7ZPERUBoFF0',
@@ -33,7 +47,7 @@ class productForm extends Component {
             statusProduct:false,
             statusQuantity:false,
             redirect:false,
-            editorState: EditorState.createEmpty(),
+            editorState: editorState,
         }
     }
     onSubmit=(e)=>{
@@ -52,7 +66,6 @@ class productForm extends Component {
             manhinh,name,pin,priceINT,priceSaleINT,quantityINT,ram,rom,starINT,statusProduct,statusQuantity
         }
        if(product){
-         
           this.props.addProduct(product);
         this.setState({
             redirect:true
@@ -103,13 +116,10 @@ class productForm extends Component {
     onChangeImages=(e)=>{
         if(e.target.files[0]){
             const images1=e.target.files[0];
-            
             this.setState({
                 images1:images1,
-               
             });
         }
-        
     }
     onChangeImages2=(e)=>{
         if(e.target.files[0]){
@@ -123,10 +133,8 @@ class productForm extends Component {
         this.setState({
             description:description
         });
-        
     }
     render() {
-      
         return (
             <form onSubmit={this.onSubmit}>
                 <div className="main-content-table">
@@ -138,12 +146,10 @@ class productForm extends Component {
                                     <p><input required  name="name" className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." /></p>
                                 <p className="name-product-edit">Tên hãng</p>
                                     <p>
-                                    
                                         <select name="brand" value={this.state.brand}  className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." >
                                         {this.props.showBrand}
                                         </select>
                                     </p>
-                                
                                 <p className="name-product-edit">Tên danh mục</p>
                                     <p>
                                         <select name="category" value={this.state.category} className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." >
@@ -154,7 +160,6 @@ class productForm extends Component {
                                     <p><input required  name="manhinh" className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." /></p>
                                 <p className="name-product-edit">Product-pin</p>
                                     <p><input required  name="pin" className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." /></p>
-                                
                                 <p className="name-product-edit">Ảnh 1</p>
                                     <p><input   onChange={this.onChangeImages}  className="input-product-edit" type="file" alt="" placeholder="Nhập để chỉnh sửa..." /></p>
                                 <p className="name-product-edit">Ảnh 2</p>
@@ -203,28 +208,15 @@ class productForm extends Component {
                                 <p><input required  name="rom" className="input-product-edit" type="text" onChange={this.onChange} alt="" placeholder="Nhập để chỉnh sửa..." /></p>
                             </div>
                         </div>
-                        {/* <div className="row-footer-editor">
-                            <p className="name-product-edit-ckeditor">Mô tả</p>
-                            <p>
-                                <textarea placeholder="Mô tả..." name="description" 
-                                onChange={this.onChange} id="editor"
-                                className="input-product-edit-textarea" 
-                                defaultValue={""} />
-                            </p>
-                        </div> */}
                         <div className="row-footer-editor">
                             <p className="name-product-edit-ckeditor">Mô tả</p>
-                            
-                                
                                 <Editor
                                     className="input-product-edit-textarea"
                                     wrapperClassName="wrapper-class"
                                     editorClassName="editor-class"
                                     toolbarClassName="toolbar-class"
                                     onEditorStateChange={this.onEditorStateChange}
-                                   
                                 />
-                            
                         </div>
 
                         <div className="row-footer">

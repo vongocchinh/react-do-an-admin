@@ -6,32 +6,23 @@ import Menu from './components/Menu/menu';
 import Home from './container/home/home';
 import Header from './container/header';
 import Footer from './components/layout/Footer';
-import DashMenu from './components/Menu/dashMenu';
+import DashMenu from './components/Menu/menuContent';
 import { ToastContainer } from 'react-toastify';
 import Login from './container/login/login';
 import { connect } from 'react-redux';
-import * as action from './actions/admin';
+import UserTransport from './container/userTransport/userTransport';
+
 class  App extends Component {
-  constructor(props) {
-    super(props);
-    this.state={
-      adminDashBoard:false
-    }
-  }
-  
   render(){ 
-    var {UserAdmin}=this.props;
     var layout=false;
-    if(UserAdmin){
-      if(UserAdmin.displayName){
+    var UserData=JSON.parse(localStorage.getItem('userAdmin'));
+    if(UserData){
+      if(UserData.idAdmin){
         layout=true;
       }
     }else{
       layout=false;
     }
-    setTimeout(() => {
-      this.props.Get_Admin();
-    }, 1000);
     return (
       <div>
       <ToastContainer
@@ -44,6 +35,7 @@ class  App extends Component {
             pauseOnFocusLoss
             draggable
             pauseOnHover
+            style={{width:"300px",height:"40px",fontSize:"12px"}}
             />
             {layout ? <Router>
                       <div>
@@ -51,9 +43,9 @@ class  App extends Component {
                         <div className="container-right-index2-left">
                             <Header/>
                               <DashMenu/>
-                                  <RouterUi>
+                                <RouterUi>
                                     <Home/>
-                                  </RouterUi>
+                                </RouterUi>
                             <Footer/>
                         </div>
                       </div>
@@ -64,20 +56,22 @@ class  App extends Component {
       </div>
     );
   }
-}
-const mapStateToProps=(state)=>{
-  return{
-    UserAdmin:state.UserAdmin
-  }
-}
-const dispatchToProps=(dispatch,props)=>{
-  return {
-    Get_Admin:()=>{
-      dispatch(action.GetAdmin());
+  showHomeAdmin=(data)=>{
+    switch(data){
+      case 0:
+        return (<RouterUi>
+                <Home/>
+              </RouterUi>);
+      case '2':
+        return (<UserTransport/>);
+      default : return (<RouterUi>
+                        <Home/>
+                      </RouterUi>);
     }
   }
 }
+
 export default 
-connect(mapStateToProps,dispatchToProps)
+connect(null,null)
 (App);
 

@@ -18,18 +18,26 @@ import { toast } from 'react-toastify';
        if(AdminMessage.Login_Admin_Success){
             toast.success('Đăng Nhập Thành Công !')
        }
+       if(AdminMessage.Logout_Admin_Success){
+           window.location.reload();
+           toast.success('Đăng Xuất Thành Công !')
+       }
         return (
            <>
             <Header
-                logout={this.props.logout}
+                logout={this.logout}
             />
            </>
         )
     }
+    logout=()=>{
+        this.props.logout();
+    }
 }
 const mapStateToProps=(state)=>{
     return{
-        AdminMessage:state.AdminMessage
+        AdminMessage:state.AdminMessage,
+
     }
 }
 const dispatchToProps=(dispatch,props)=>{

@@ -4,7 +4,8 @@ import Category from './../images/CATEGORY_moi.png';
 import FromImg from './../images/form.png';
 import IconMenu from './../images/menu.png';
 import { Link } from 'react-router-dom';
-
+var billImages="https://image.flaticon.com/icons/png/512/1466/1466668.png";
+var iconAdmin="https://www.flaticon.com/svg/static/icons/svg/2206/2206368.svg";
 export default class menu extends Component {
     render() {
         return (
@@ -18,8 +19,7 @@ export default class menu extends Component {
                     <div className="panel">
                         <span>
                             <Link to="/" >DashBoard</Link>
-                            <Link to="/admin" >Admin</Link>
-                            <Link to="/nhanvien" >Nhanvien</Link>
+                            <Link to="/admin" >Tài khoản</Link>
                         </span>
                     </div>
                     <div className="overflow-main" id="style-1">
@@ -30,12 +30,9 @@ export default class menu extends Component {
                     <div className="panel">
                         <span>
                             <Link to="/productList" >Products</Link>
-                            <Link to="/user" >Users</Link>
                             <Link to="/brand" >Brands</Link>
                             <Link to="/category" >Category</Link>
-                            <Link to="/bill" >Bills</Link>
                             <Link to="/slides" >Slides</Link>
-                            <Link to="/contact" >Contacts</Link>
                         </span>
                     </div>
                     <li className="menu-item ">
@@ -47,28 +44,39 @@ export default class menu extends Component {
                              <Link to="/categoryAdd" >Category</Link>
                              <Link to="/productAdd" >Products</Link>
                              <Link to="/addSlides">Slides</Link>
-                        </span> 
+                        </span>
                     </div>
                     <li className="menu-item ">
-                        <a href="###" className="text-menu-item"><img alt="###" src={IconMenu} />Quản Lý Page</a>
+                        <a href="###" className="text-menu-item"><img alt="###" src={IconMenu} />Quản Lý khách hàng</a>
                     </li>
                     <div className="panel">
                         <span>
-                             <Link to="/productList" >Products</Link>
-                             <Link to="/productList" >Products</Link>
-                             <Link to="/productList" >Products</Link>
+                             <Link to="/newsletters" >Newsletters</Link>
+                             <Link to="/user" >Users</Link>
+                             <Link to="/contact" >Contacts</Link>
+                        </span>
+                    </div>
+                    <li className="menu-item ">
+                        <a href="###" className="text-menu-item"><img alt="###" src={billImages} />Quản Lý Đơn Hàng</a>
+                    </li>
+                    <div className="panel">
+                        <span>
+                             <Link to="/bill" >Đơn hàng</Link>
+                             <Link to="/ordered">Đơn hàng đang giao</Link>
+                             <Link to="/ordersDelivered" >Đơn hàng đã giao</Link>
+                             <Link to="/orderConfirmation">Đơn hàng đã xác nhận</Link>
                         </span>
                     </div>
                     </div>
+
                     <h4 className="menu-text"> MULTI LEVEL EXAMPLE</h4>
                     <li className="menu-item ">
-                    <a href="###" className="text-menu-item"><img alt="###" src={IconMenu} />Quản lý page</a>
+                    <a href="###" className="text-menu-item"><img alt="###" src={iconAdmin} />Quản lý page</a>
                     </li>
                     <div className="panel">
                         <span>
-                             <Link to="/productList" >Products</Link>
-                             <Link to="/productList" >Products</Link>
-                             <Link to="/productList" >Products</Link>
+                             <Link to="/register" >Register Admin</Link>
+                             <Link to="/listAdmin" >List Admin</Link>
                         </span>
                     </div>
                     <h4 className="menu-text">LOGGED IN AS:ADMIN</h4>

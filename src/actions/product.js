@@ -15,8 +15,7 @@ export const ADD_PRODUCT_REQUEST=(product)=>{
         dispatch(Product_Add_request());
         var firebase=getFirebase().firestore();
         const {images1}=product;
-        
-        
+
         var storages=storage.ref("images/"+(images1.name)).put(images1);
         storages.on('state_changed',
         snapshot=>{},
@@ -37,7 +36,7 @@ export const ADD_PRODUCT_REQUEST=(product)=>{
                 var statusProduct=product.statusProduct;
                 var statusQuantity=product.statusQuantity;
                 const {images2}=product;
-                    
+
                     var storages2=storage.ref("images/"+(images2.name)).put(images2);
                     storages2.on('state_changed',
                     snapshot=>{},
@@ -46,7 +45,7 @@ export const ADD_PRODUCT_REQUEST=(product)=>{
                     },
                     ()=>{
                         storage.ref("images").child(images2.name).getDownloadURL().then((url2)=>{
-                           
+
                             firebase.collection("products").add({
                                 brand,camAfter,camBefore,category,cpu,description,gpu,
                                 images1:url,
@@ -60,7 +59,6 @@ export const ADD_PRODUCT_REQUEST=(product)=>{
                             })
                         });
                     });
-               
             });
         });
     }
@@ -96,8 +94,8 @@ export const DELETE_PRODUCT_REQUEST=(product)=>{
     return(dispatch,getState,{getFirebase})=>{
         dispatch(Product_Delete_request());
         var firebase=getFirebase().firestore();
-        const productId=product.id;
-        firebase.collection("products").doc(productId).delete().then(()=>{
+        const id=product.id;
+        firebase.collection("products").doc(id).delete().then(()=>{
             dispatch(DELETE_PRODUCT(product));
             dispatch(Product_Delete_Success());
         }).catch(()=>{
@@ -139,13 +137,14 @@ export const UPDATE_PRODUCT_REQUEST=(product)=>{
             cpu='',description='',gpu='',
             images2='',images3='',images4='',
             manhinh='',name='',pin='',priceINT='',priceSaleINT='',
-            quantityINT='',ram='',rom='',starINT='',keyImages=''
+            quantityINT='',ram='',rom='',starINT='',
         }=product;
         var statusProduct=product.statusProduct;
         var statusQuantity=product.statusQuantity;
         const {images1}=product;
-        if(keyImages===true){
-            firebase.collection("products").doc(product.id).set({
+        var id=product.id;
+
+            firebase.collection("products").doc(id).set({
                 brand,camAfter,camBefore,category,cpu,description,gpu,
                 images1:images1,
                 images2:images2,
@@ -156,7 +155,27 @@ export const UPDATE_PRODUCT_REQUEST=(product)=>{
             }).catch((error)=>{
                 dispatch(Product_Update_Error(error));
             })
-        }else{
+
+    }
+}
+
+
+export const updateImagesProduct=(product)=>{
+    return(dispatch,getState,{getFirebase})=>{
+        dispatch(Product_Update_request());
+        var firebase=getFirebase().firestore();
+        const {
+            brand='',camAfter='',camBefore='',category='',
+            cpu='',description='',gpu='',
+            images2='',images3='',images4='',
+            manhinh='',name='',pin='',priceINT='',priceSaleINT='',
+            quantityINT='',ram='',rom='',starINT=''
+        }=product;
+        var statusProduct=product.statusProduct;
+        var statusQuantity=product.statusQuantity;
+        const {images1}=product;
+
+
             var storages=storage.ref("images/"+(images1.name)).put(images1);
 
             storages.on('state_changed',
@@ -165,23 +184,38 @@ export const UPDATE_PRODUCT_REQUEST=(product)=>{
                 console.log(error);
             },
             ()=>{
-                storage.ref("images").child(images1.name).getDownloadURL().then((url)=>{
-                    firebase.collection("products").doc(product.id).set({
-                        brand,camAfter,camBefore,category,cpu,description,gpu,
-                        images1:url,
-                        images2:images2,
-                        images3,images4,manhinh,name,pin,price:priceINT,priceSale:priceSaleINT,quantity:quantityINT,ram,rom,star:starINT,statusProduct,statusQuantity
-                    }).then(()=>{
-                        dispatch(ADD_PRODUCT(product));
-                        dispatch(Product_Update_Success());
-                    }).catch((error)=>{
-                        dispatch(Product_Update_Error(error));
-                    })
+                storage.ref("images").child(images1.name).getDownloadURL().then((urlImage1)=>{
+
+                    var storages=storage.ref("images/"+(images2.name)).put(images2);
+
+                    storages.on('state_changed',
+                    snapshot=>{},
+                    error=>{
+                        console.log(error);
+                    },
+                    ()=>{
+                        storage.ref("images").child(images2.name).getDownloadURL().then((urlImage2)=>{
+
+                            firebase.collection("products").doc(product.id).set({
+                                brand,camAfter,camBefore,category,cpu,description,gpu,
+                                images1:urlImage1,
+                                images2:urlImage2,
+                                images3,images4,manhinh,name,pin,price:priceINT,priceSale:priceSaleINT,quantity:quantityINT,ram,rom,star:starINT,statusProduct,statusQuantity
+                            }).then(()=>{
+                                dispatch(ADD_PRODUCT(product));
+                                dispatch(Product_Update_Success());
+                            }).catch((error)=>{
+                                dispatch(Product_Update_Error(error));
+                            })
+
+                        });
+                    });
+
                 });
             });
         }
     }
-}
+   
 export const UPDATE_PRODUCT=(product)=>{
     return{
         type:type.UPDATE_PRODUCT,
@@ -223,7 +257,8 @@ export const UPDATE_STATUS=(product)=>{
         }=product;
         var statusProduct=product.statusProduct;
         var statusQuantity=product.statusQuantity;
-        firebase.collection("products").doc(product.id).set({
+        var id=product.id;
+        firebase.collection("products").doc(id).set({
             brand,camAfter,camBefore,category,cpu,description,gpu,
             images1:product.images1,
             images2:images2,
@@ -238,12 +273,16 @@ export const UPDATE_STATUS=(product)=>{
             statusProduct:!statusProduct,
             statusQuantity
         }).then(()=>{
-            dispatch(ADD_PRODUCT(product));
+            dispatch( Update_Status());
         })
     }
 }
 
-
+export const Update_Status=()=>{
+    return {
+        type:Message.Product_Update_Status_Success
+    }
+}
 
 // reset
 export const ResetMessage=()=>{
@@ -256,12 +295,11 @@ export const ResetMessage=()=>{
 // update quantity bill
 export const UPDATE_PRODUCT_Bill=(product,quantityBill)=>{
     return(dispatch,getState,{getFirebase})=>{
-     
-        var firebase=getFirebase().firestore();       
+        var firebase=getFirebase().firestore();
         const {
             brand='',camAfter='',camBefore='',category='',
             cpu='',description='',gpu='',
-            images2='',images3='',images4='', 
+            images2='',images3='',images4='',
             manhinh='',name='',pin='',
             quantity='',ram='',rom='',
         }=product;
@@ -273,7 +311,8 @@ export const UPDATE_PRODUCT_Bill=(product,quantityBill)=>{
         price=parseInt(price,10);
         priceSale=parseInt(priceSale,10);
         star=parseInt(star,10);
-        firebase.collection("products").doc(product.id).set({
+        var id=product.id;
+        firebase.collection("products").doc(id).set({
             brand,camAfter,camBefore,category,cpu,description,gpu,
             images1:product.images1,
             images2:images2,

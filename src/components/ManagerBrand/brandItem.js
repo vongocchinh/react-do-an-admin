@@ -24,7 +24,6 @@ import { Button, TextField } from '@material-ui/core';
         this.setState({
             openDelete:true
         });
-       
     }
     onUpdate=()=>{
         this.setState({
@@ -41,7 +40,7 @@ import { Button, TextField } from '@material-ui/core';
             [e.target.name]:e.target.value
         });
     }
-    handleSubmit=()=>{
+    handleUpdateSubmit=()=>{
         this.setState({
             open:false
         });
@@ -50,10 +49,10 @@ import { Button, TextField } from '@material-ui/core';
             brandId:this.state.BrandId
         }
         this.props.updateBrand(brandNew);
-        
     }
     UNSAFE_componentWillMount(){
         var {brand}=this.props;
+        
         if(brand){
             this.setState({
                 BrandName:brand.brandName,
@@ -67,7 +66,6 @@ import { Button, TextField } from '@material-ui/core';
         }
     }
     UNSAFE_componentWillReceiveProps(nextProps){
-        
         if(nextProps.brand&&nextProps){
             this.setState({
                 BrandName:nextProps.brand.brandName,
@@ -98,21 +96,18 @@ import { Button, TextField } from '@material-ui/core';
     render() {
         var {brand}=this.props;
         var {keys}=this.props;
-       
         return (
         <>
                 <tbody>
                 <tr>
                     <td>{keys++}</td>
                     <td>{brand.brandName}</td>
-                    
                     <td className="option">
                         <button style={{border:"none",outline:"none",backgroundColor:"white"}}  onClick={this.onDelete}> <img alt="###" src={IconDe} /></button>
                         {/* <Link to={"/"+"update-brand"+"/"+brand.id+"/"+Format.to_slug(brand.brandName)} href="product_edit.html"><img alt="###" src={IconU} /></Link> */}
                         <span onClick={this.onUpdate}><img alt="###" src={IconU} /></span>
                     </td>
                 </tr>
-                
                 </tbody>
                 <Dialog
                     open={this.state.open}
@@ -122,7 +117,6 @@ import { Button, TextField } from '@material-ui/core';
                     aria-describedby="alert-dialog-slide-description"
                 >
                      <DialogTitle id="form-dialog-title">Update</DialogTitle>
-                    
                         <DialogContent>
                         <DialogContentText>
                             To update to this website, please enter your name  here. We will send updates
@@ -142,11 +136,10 @@ import { Button, TextField } from '@material-ui/core';
                             <Button onClick={this.handleClose} color="primary">
                                 cancel
                             </Button>
-                            <Button  onClick={this.handleSubmit} color="primary">
+                            <Button  onClick={this.handleUpdateSubmit} color="primary">
                                 Update
                             </Button>
                         </DialogActions>
-                    
                 </Dialog>
                 <Dialog
                     open={this.state.openDelete}

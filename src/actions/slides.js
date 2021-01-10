@@ -4,9 +4,8 @@ export const Delete_Slides=(Slide)=>{
     return (dispatch,getState,{getFirebase})=>{
         dispatch(Slide_Delete_request());
         var firebase=getFirebase().firestore();
-        const SlideId=Slide.id;
-        firebase.collection("slides").doc(SlideId).delete().then(()=>{
-            
+        const id=Slide.id;
+        firebase.collection("slides").doc(id).delete().then(()=>{
             dispatch(Slide_Delete_Success());
         }).catch(()=>{
             dispatch(Slide_Delete_Error());

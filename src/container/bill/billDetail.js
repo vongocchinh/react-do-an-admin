@@ -12,7 +12,6 @@ import { CircularProgress } from '@material-ui/core';
     render() {
         var {billStore}=this.props;
         var {id}=this.props.match.params;
-       
         return (
             <Bill 
                 showBill={this.showBill(billStore,id)}
@@ -22,15 +21,11 @@ import { CircularProgress } from '@material-ui/core';
     showBill=(bills,id)=>{
         var result=null;
         if(bills){
-            (bills && bills.map((bill)=>{
-                
+            result=(bills && bills.map((bill,key)=>{
                 if(bill.id===id){
                     var {name,date,userMail,phone,address}=bill;
-                    
-                   
-                    result=(bill.cart.map((item,key)=>{
                         return <BillItem 
-                        itemProduct={item}
+                        itemProduct={bill.cart}
                         key={key}
                         stt={key}
                         name={name}
@@ -39,9 +34,8 @@ import { CircularProgress } from '@material-ui/core';
                         phone={phone}
                         address={address}
                         bill={bill}
-                        
+                        id={id}
                 />
-                    }))
                 }
             }));
         }else{
@@ -55,8 +49,9 @@ import { CircularProgress } from '@material-ui/core';
     }
 }
 const mapStateToProps=(state)=>{
+    
     return{
-        billStore:state.getFirestore.ordered.bill
+        billStore:state.getFirestore.ordered.bill,
     }
 }
 const dispatchToProps=(dispatch,props)=>{
@@ -64,7 +59,7 @@ const dispatchToProps=(dispatch,props)=>{
 
     }
 }
-export default 
+export default
 compose(connect(mapStateToProps,dispatchToProps),
 firestoreConnect(own=>[
     {

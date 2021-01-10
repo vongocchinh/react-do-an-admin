@@ -12,6 +12,8 @@ import ProductMessage from './product/ProductMessage';
 import Bill from './bill/bill';
 import Slides from './slides/slides';
 import UserAdmin from './admin/userAdmin';
+import Register from './admin/register';
+import GetBrand from './brand/GetBrand';
 var myReducer=combineReducers({
     getFirebase:firebaseReducer,
     getFirestore:firestoreReducer,
@@ -24,6 +26,8 @@ var myReducer=combineReducers({
     ProductMessage,
     Bill,
     Slides,
-    UserAdmin
+    UserAdmin,
+    Register,
+    GetBrand
 });
 export default myReducer;

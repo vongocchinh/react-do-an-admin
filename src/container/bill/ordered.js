@@ -11,12 +11,20 @@ import { CircularProgress } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import Ordered from './../../components/ManagerBill/ordered/ordered';
 import OrderedItem from './../../components/ManagerBill/ordered/orderedItem';
+import Pagination from '@material-ui/lab/Pagination';
 
  class ordered extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          currentPage:1,
+          currentPageNew:10
+        };
+     }
     render() {
         var {billStore,BillState}=this.props;
         if(BillState.Update_Quantity_Success){
-            toast.success("Update thành công !!!");
+            toast.dark("Xác nhận thành công !!!");
             setTimeout(() => {
                 this.props.Reset_Update_Bill();
             }, 500);
@@ -30,6 +38,7 @@ import OrderedItem from './../../components/ManagerBill/ordered/orderedItem';
                     </Dialog>
             <Ordered 
                 showBillGo={this.showBillGo(billStore)}
+                showPagination={this.showPagination(billStore)}
             />
             </>
         )
@@ -46,14 +55,43 @@ import OrderedItem from './../../components/ManagerBill/ordered/orderedItem';
     rulesBillGo=(bill)=>{
         this.props.rulesBillGo(bill);
     }
-
+    showPagination=(data)=>{
+        var {currentPage,currentPageNew}=this.state;
+            if(data){
+            var count=0;
+            for(let i=0;i<data.length;i++){
+                if(data[i].rulesBill===3){
+                    count++;
+                }
+            }
+            return <Pagination 
+                page={currentPage} count={Math.ceil(count/currentPageNew)}
+                size="small"
+                onChange={this.onHandlePagination}
+            />
+            }
+    }
+    onHandlePagination=(e,value)=>{
+        this.setState({
+          currentPage:value
+        });
+      }
     showBillGo=(bill)=>{
         var result=null;
         if(bill){
             if(bill){
                 // bill=this.sort(bill);
-
-                result=(bill && bill.map((bill,key)=>{
+                var arr=[];
+                for(let i=0;i<bill.length;i++){
+                    if(bill[i].rulesBill===3){
+                        arr.push(bill[i]);
+                    }
+                }
+                var {currentPage,currentPageNew}=this.state;
+                var pageLast=currentPage*currentPageNew;
+                var pageFirst=pageLast- currentPageNew;
+                arr=arr.slice(pageFirst,pageLast);
+                result=(arr && arr.map((bill,key)=>{
                     if(bill.rulesBill===3){
                         return <OrderedItem 
                             bill={bill}

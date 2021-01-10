@@ -9,13 +9,22 @@ import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { toast } from 'react-toastify';
+import Pagination from '@material-ui/lab/Pagination';
+
 import OrdersDelivered from '../../components/ManagerBill/ordersDelivered/ordersDelivered';
 import OrdersDeliveredItem from './../../components/ManagerBill/ordersDelivered/ordersDeliveredItem';
  class orderDelivered extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          currentPage:1,
+          currentPageNew:10
+        };
+     }
     render() {
         var {billStore,BillState}=this.props;
         if(BillState.Update_Quantity_Success){
-            toast.success("Update thành công !!!");
+            toast.dark("Xác nhận thành công !!!");
             setTimeout(() => {
                 this.props.Reset_Update_Bill();
             }, 500);
@@ -29,6 +38,7 @@ import OrdersDeliveredItem from './../../components/ManagerBill/ordersDelivered/
                     </Dialog>
             <OrdersDelivered 
                 showBillSuccess={this.showBillSuccess(billStore)}
+                showPagination={this.showPagination(billStore)}
             />
             </>
         )
@@ -45,13 +55,43 @@ import OrdersDeliveredItem from './../../components/ManagerBill/ordersDelivered/
     rulesBillGo=(bill)=>{
         this.props.rulesBillGo(bill);
     }
+    showPagination=(data)=>{
+        var {currentPage,currentPageNew}=this.state;
+            if(data){
+            var count=0;
+            for(let i=0;i<data.length;i++){
+                if(data[i].rulesBill===4){
+                    count++;
+                }
+            }
+            return <Pagination 
+                page={currentPage} count={Math.ceil(count/currentPageNew)}
+                size="small"
+                onChange={this.onHandlePagination}
+            />
+            }
+    }
+    onHandlePagination=(e,value)=>{
+        this.setState({
+          currentPage:value
+        });
+      }
     showBillSuccess=(bill)=>{
         var result=null;
         if(bill){
             if(bill){
+                var arr=[];
+                for(let i=0;i<bill.length;i++){
+                    if(bill[i].rulesBill===4){
+                        arr.push(bill[i]);
+                    }
+                }
                 // bill=this.sort(bill);
-
-                result=(bill && bill.map((bill,key)=>{
+                var {currentPage,currentPageNew}=this.state;
+                var pageLast=currentPage*currentPageNew;
+                var pageFirst=pageLast- currentPageNew;
+                arr=arr.slice(pageFirst,pageLast);
+                result=(arr && arr.map((bill,key)=>{
                     if(bill.rulesBill===4){
                         return <OrdersDeliveredItem 
                             bill={bill}

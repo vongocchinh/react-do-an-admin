@@ -23,6 +23,7 @@ export default class brandForm extends Component {
           brandName,
           brandId
       }
+      
       if(brand){
         this.props.updateBrand(brand);
         this.setState({

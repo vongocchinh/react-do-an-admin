@@ -10,29 +10,37 @@ import * as actions from '../../actions/product';
 import { Dialog } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import Pagination from '@material-ui/lab/Pagination';
 
  class bill extends Component {
+     constructor(props) {
+        super(props);
+        this.state = {
+          currentPage:1,
+          currentPageNew:10
+        };
+     }
     render() {
         var {billStore,BillState}=this.props;
-        if(BillState.Update_Quantity_Request){
-            return <Dialog open={true}>
+        if(BillState.Update_Quantity_Success){
+            // toast.dark("Xác nhận thành công !!!");
+            setTimeout(() => {
+                this.props.Reset_Update_Bill();
+            }, 500);
+        }
+        return (
+            <>
+            <Dialog open={BillState.Update_Quantity_Request}>
                         <DialogContent>
                             <CircularProgress aria-labelledby="simple-dialog-title" />
                         </DialogContent>
-                    </Dialog>;
-        }
-        if(BillState.Update_Quantity_Success){
-            toast.success("Update thành công !!!");
-        }
-        setTimeout(() => {
-            this.props.Reset_Update_Bill();
-        }, 1000);
-        return (
+                    </Dialog>
             <Bill 
                 showBill={this.showBill(billStore)}
-                showBillConfirm={this.showBillConfirm(billStore)}
+                showPagination={this.showPagination(billStore)}
             />
+            </>
         )
     }
     sort=(bill)=>{
@@ -44,49 +52,52 @@ import { toast } from 'react-toastify';
         }
         return result;
     }
+    showPagination=(data)=>{
+        var {currentPage,currentPageNew}=this.state;
+        var count=0;
+        
+            if(data){
+                for(let i=0;i<data.length;i++){
+                    if(data[i].rulesBill===1){
+                        count++;
+                    }
+                }
+            return <Pagination 
+                page={currentPage} count={Math.ceil(count/currentPageNew)}
+                size="small"
+                onChange={this.onHandlePagination}
+            />
+            }
+    }
+    onHandlePagination=(e,value)=>{
+        this.setState({
+          currentPage:value
+        });
+      }
     showBill=(bill)=>{
         var result=null;
         if(bill){
             if(bill){
-                // bill=this.sort(bill);
-
-                result=(bill && bill.map((bill,key)=>{
-                    if(bill.rulesBill===false){
-                        return <BillItem 
-                            bill={bill}
-                            key={key}
-                            stt={key}
-                            rulesBill={this.rulesBill}
-                            updateQuantity={this.updateQuantity}
-                    />
+                var data=[];
+                for(let i=0;i<bill.length;i++){
+                    if(bill[i].rulesBill===1){
+                        data.push(bill[i]);
                     }
-                }));
-            }
-        }else{
-            return <Dialog open={true}>
-                        <DialogContent>
-                            <CircularProgress aria-labelledby="simple-dialog-title" />
-                        </DialogContent>
-                    </Dialog>;
-        }
-        
-        return result;
-    }
-    showBillConfirm=(bill)=>{
-        var result=null;
-        if(bill){
-            if(bill){
-                // bill=this.sort(bill);
-
-                result=(bill && bill.map((bill,key)=>{
-                    if(bill.rulesBill===true){
+                }
+                // console.log(data);
+                var {currentPage,currentPageNew}=this.state;
+                var pageLast=currentPage*currentPageNew;
+                var pageFirst=pageLast- currentPageNew;
+                data=data.slice(pageFirst,pageLast);
+                data=this.sort(data);
+                result=(data && data.map((bill,key)=>{
+                    if(bill.rulesBill===1){
                         return <BillItem 
                             bill={bill}
                             key={key}
                             stt={key}
                             rulesBill={this.rulesBill}
                             updateQuantity={this.updateQuantity}
-                            onDelete={this.onDelete}
                     />
                     }
                 }));
@@ -102,11 +113,12 @@ import { toast } from 'react-toastify';
         return result;
     }
     rulesBill=(bill)=>{
-        
-        
     }
     onDelete=(bill)=>{
         this.props.onDelete(bill);
+    }
+    rulesBillSuccess=(bill)=>{
+        this.props.rulesBillSuccess(bill);
     }
     updateQuantity=(cart,bill)=>{
         var {products}=this.props;
@@ -120,14 +132,15 @@ import { toast } from 'react-toastify';
                         }
                        else if(products[j].quantity<1){
                            alert('san pham '+products[j].name +" het hang.!!!");
-                           return;
+                           break;
                        }
                     }
                 }
-          
             }
         }
-        
+    }
+    componentDidMount(){
+        document.title="Quản lý đơn hàng...";
     }
 }
 const mapStateToProps=(state)=>{
@@ -143,7 +156,6 @@ const dispatchToProps=(dispatch,props)=>{
             dispatch(action.UpdateBillRules(bill));
         },
         updateQuantity:(product,quantity)=>{
-            
             dispatch(actions.UPDATE_PRODUCT_Bill(product,quantity));
         },
         Reset_Update_Bill:()=>{
@@ -151,6 +163,12 @@ const dispatchToProps=(dispatch,props)=>{
         },
         onDelete:(bill)=>{
             dispatch(action.BILL_DELETE_REQUEST(bill));
+        },
+        rulesBillGo:(bill)=>{
+            dispatch(action.rulesBillGo(bill));
+        },
+        rulesBillSuccess:(bill)=>{
+            dispatch(action.rulesBillSuccess(bill));
         }
     }
 }

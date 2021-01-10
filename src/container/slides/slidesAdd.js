@@ -46,6 +46,9 @@ class slidesAdd extends Component {
         }
         return result;
     }
+    componentDidMount(){
+        document.title="Thêm slides ...";
+    }
 }
 const mapStateToProps=(state)=>{
     return {

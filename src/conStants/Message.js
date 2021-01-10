@@ -56,4 +56,5 @@ export const Product_Delete_Success="Product_Delete_Success";
 export const Product_Delete_Error="Product_Delete_Error";
 export const Product_Delete_Request="Product_Delete_Request";
 export const Product_Delete_Reset="Product_Delete_Reset";
+export const Product_Update_Status_Success="Product_Update_Status_Success";
 

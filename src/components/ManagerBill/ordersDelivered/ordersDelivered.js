@@ -27,6 +27,9 @@ export default class ordersDelivered extends Component {
                         </tbody>
                     </table>
                 </div>
+                <div className="pagination-button">
+                        {this.props.showPagination}
+                </div>
                 </div>
       </div>
      )

@@ -53,8 +53,8 @@ export const DELETE_CATEGORY_REQUEST=(category)=>{
     return (dispatch,getState,{getFirebase})=>{
         dispatch(Category_Delete_request());
         var firebase=getFirebase().firestore();
-        const categoryID=category.id;
-        firebase.collection("category").doc(categoryID).delete().then(()=>{
+        const id=category.id;
+        firebase.collection("category").doc(id).delete().then(()=>{
             dispatch(DELETE_CATEGORY(category));
             dispatch(Category_Delete_Success());
         }).catch(()=>{
@@ -93,10 +93,10 @@ export const UPDATE_CATEGORY_REQUEST=(category)=>{
     return (dispatch,getState,{getFirebase})=>{
         dispatch(Category_Update_request());
         var firebase=getFirebase().firestore();
-        const categoryID=category.categoryId;
+        const id=category.categoryId;
         const {categoryName=''}=category;
-        firebase.collection("category").doc(categoryID).set({
-                categoryID,categoryName
+        firebase.collection("category").doc(id).set({
+                categoryID:id,categoryName
         }).then(()=>{
             dispatch(UPDATE_CATEGORY(category));
             dispatch(Category_Update_Success());

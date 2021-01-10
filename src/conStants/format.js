@@ -37,8 +37,7 @@ export const totalBill=(cart)=>{
 //totalProduct
 export const totalProduct=(quantity,cart)=>{
     var tong=0;
-    
     tong+=quantity*(cart.price-(cart.price*(cart.priceSale/100)));
-   
+
     return tong;
 }

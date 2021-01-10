@@ -10,9 +10,18 @@ import { DialogContent } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import * as action from './../../actions/slides';
 import { toast } from 'react-toastify';
+import Pagination from '@material-ui/lab/Pagination';
 
  class slides extends Component {
+     constructor(props) {
+         super(props);
+         this.state={
+             currentPage:1,
+             currentPageNew:10
+         }
+    }
     render() {
+        // document.title="Quản lý slides ... ";
         var {SlideFireStore,ProductFireStore,SlideMessage}=this.props;
         if(SlideMessage.deleteSlidesSuccess){
             toast.warning("Delete slides thành công !!!");
@@ -26,21 +35,41 @@ import { toast } from 'react-toastify';
         }
         if(SlideMessage.updateStatusSlidesSuccess){
             toast.success("Update slides thành công !!!");
+            setTimeout(() => {
+                this.props.resetSlideMessage();
+            }, 2000);
         }
-        setTimeout(() => {
-            this.props.resetSlideMessage();
-        }, 2000);
         return (
             <Slides
                 showSlides={this.showSlides(SlideFireStore,ProductFireStore)}
+                showPagination={this.showPagination(SlideFireStore)}
             />
         );
 
     }
-    
+    showPagination=(slide)=>{
+        var {currentPage,currentPageNew}=this.state;
+        if(slide){
+            return <Pagination 
+                page={currentPage}
+                count={Math.ceil(slide.length/currentPageNew)}
+                size="small"
+                onChange={this.onChangePagination}
+            />
+        }
+    }
+    onChangePagination=(e,value)=>{
+        this.setState({
+            currentPage:value
+        });
+    }
     showSlides=(slides,product)=>{
         var result=null;
+        var {currentPage,currentPageNew}=this.state;
         if(slides&&product){
+            var pageLast= currentPage * currentPageNew;
+            var pageFirst=pageLast - currentPageNew;
+            slides=slides.slice(pageFirst,pageLast);
             result=slides.map((slide,key)=>{
                 for(let i=0;i<product.length;i++){
                     if(product[i].id===slide.idProduct){
@@ -54,7 +83,6 @@ import { toast } from 'react-toastify';
                      />
                     }
                 }
-                
             })
         }else{
             return <Dialog open={true}>
@@ -70,6 +98,9 @@ import { toast } from 'react-toastify';
     }
     onStatus=(slide)=>{
         this.props.onStatus(slide);
+    }
+    componentDidMount(){
+        document.title="Danh sác slides banner";
     }
 }
 const mapStateToProps=(state)=>{

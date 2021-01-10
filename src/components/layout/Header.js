@@ -22,7 +22,7 @@ export default class header extends Component {
                         <Link to="/" className="nav-link1" >Home <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item active">
-                        <a href="###" className="nav-link1" >Mega <span className="sr-only">(current)</span></a>
+                        <Link to="/" className="nav-link1" >Mega <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item active nav-item-active ">
                         <Link to="/menu-reponsize" className="nav-link1" >Menu <span className="sr-only">(current)</span></Link>
@@ -32,9 +32,8 @@ export default class header extends Component {
                         Setting
                         </a>
                         <div className="dropdown-menu dropdown-menu1" aria-labelledby="navbarDropdown">
-                        
-                        <button onClick={this.logout} className="dropdown-item" >Logout</button>
-                       
+                            <Link to="/admin" className="dropdown-item" >Tài Khoản</Link>
+                            <button onClick={this.logout} className="dropdown-item" >Đăng Xuất</button>
                         </div>
                     </li>
                     <li className="nav-item dropdown active right-mail">

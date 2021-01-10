@@ -46,7 +46,7 @@ export default class brandForm extends Component {
                         <input required autoComplete={"off"} 
                             name="brandName" onChange={this.onChange} 
                             className="input-product-edit" type="text" 
-                            alt="" placeholder="Nhập để chỉnh sửa..." 
+                             placeholder="Nhập để chỉnh sửa..." 
                         />
                       </p>
                     </div>
@@ -58,7 +58,7 @@ export default class brandForm extends Component {
                   </div>
                 </div>
               </div>
-              
+
             </form>
         )
     }

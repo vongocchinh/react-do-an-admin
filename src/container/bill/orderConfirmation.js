@@ -11,14 +11,22 @@ import { CircularProgress } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import OrderConfirmation from './../../components/ManagerBill/orderConfirmation/orderConfirmation';
 import OrderConfirmationItem from './../../components/ManagerBill/orderConfirmation/orderConfirmationItem';
+import { Pagination } from '@material-ui/lab';
 class orderConfirmation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          currentPage:1,
+          currentPageNew:10
+        };
+     }
     render() {
         var {billStore,BillState}=this.props;
         if(BillState.Update_Quantity_Success){
-            toast.success("Update thành công !!!");
+            toast.dark("Xác nhận thành công !!!");
             setTimeout(() => {
                 this.props.Reset_Update_Bill();
-            }, 500);
+            },500);
         }
         return (
             <>
@@ -29,7 +37,7 @@ class orderConfirmation extends Component {
                     </Dialog>
             <OrderConfirmation 
                 showBillConfirm={this.showBillConfirm(billStore)}
-
+                showPagination={this.showPagination(billStore)}
             />
             </>
         )
@@ -43,14 +51,43 @@ class orderConfirmation extends Component {
         }
         return result;
     }
-   
+    showPagination=(data)=>{
+        var {currentPage,currentPageNew}=this.state;
+            if(data){
+                var count=0;
+                for(let i=0;i<data.length;i++){
+                    if(data[i].rulesBill===2){
+                        count++;
+                    }
+                }
+            return <Pagination 
+                page={currentPage} count={Math.ceil(count/currentPageNew)}
+                size="small"
+                onChange={this.onHandlePagination}
+            />
+            }
+    }
+    onHandlePagination=(e,value)=>{
+        this.setState({
+          currentPage:value
+        });
+      }
     showBillConfirm=(bill)=>{
         var result=null;
         if(bill){
             if(bill){
-                // bill=this.sort(bill);
+                var arr=[];
+                for(let i=0;i<bill.length;i++){
+                    if(bill[i].rulesBill===2){
+                        arr.push(bill[i]);
+                    }
+                }
+                var {currentPage,currentPageNew}=this.state;
+                var pageLast=currentPage*currentPageNew;
+                var pageFirst=pageLast- currentPageNew;
+                arr=arr.slice(pageFirst,pageLast);
 
-                result=(bill && bill.map((bill,key)=>{
+                result=(arr && arr.map((bill,key)=>{
                     if(bill.rulesBill===2){
                         return <OrderConfirmationItem 
                             bill={bill}

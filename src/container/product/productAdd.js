@@ -15,23 +15,22 @@ import { DialogContent } from '@material-ui/core';
  class productAdd extends Component {
     render() {
         var {BrandStore,CategoryStore,ProductMessage}=this.props;
-        
-        if(ProductMessage.Product_Add_Request){
-            return <Dialog open={true}>
-                        <DialogContent>
-                            <CircularProgress />
-                        </DialogContent>
-                    </Dialog>;
-        }
         if(ProductMessage.Product_Add_Success){
             return <Redirect to='/productList' />
         }
         return (
+            <>
+            <Dialog open={ProductMessage.Product_Add_Request}>
+                        <DialogContent>
+                            <CircularProgress />
+                        </DialogContent>
+            </Dialog>
             <ProductAdd 
                 addProduct={this.addProduct}
                 showBrand={this.showBrand(BrandStore)}
                 showCategory={this.showCategory(CategoryStore)}
             />
+            </>
         )
     }
     addProduct=(product)=>{
@@ -50,6 +49,9 @@ import { DialogContent } from '@material-ui/core';
             return <Category category={item} key={key} />
         }))
         return result;
+    }
+    componentDidMount(){
+        document.title="Thêm sản phẩm ...";
     }
 }
 const mapStateToProps=(state)=>{

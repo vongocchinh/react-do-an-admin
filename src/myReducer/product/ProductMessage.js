@@ -10,6 +10,7 @@ var initialState={
     Product_Update_Success:false,
     Product_Update_Request:false,
     Product_Update_Error:false,
+    Product_Update_Status_Success:false,
 }
 var myReducer=(state=initialState,actions)=>{
     switch(actions.type){
@@ -142,6 +143,20 @@ var myReducer=(state=initialState,actions)=>{
                 Product_Update_Success:false,
                 Product_Update_Request:false,
                 Product_Update_Error:false
+            }
+            return state;
+        case types.Product_Update_Status_Success:
+            state={
+                Product_Add_Success:false,
+                Product_Add_Request:false,
+                Product_Add_Error:false,
+                Product_Delete_Success:false,
+                Product_Delete_Request:false,
+                Product_Delete_Error:false,
+                Product_Update_Success:false,
+                Product_Update_Request:false,
+                Product_Update_Error:false,
+                Product_Update_Status_Success:true,
             }
             return state;
         default : return state;

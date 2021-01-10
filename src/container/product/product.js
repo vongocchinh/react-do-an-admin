@@ -9,6 +9,9 @@ import * as actions from './../../actions/product';
 import { Dialog } from '@material-ui/core';
 import { CircularProgress } from '@material-ui/core';
 import { DialogContent } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
+import styles from './styles/styles';
+import loading from '../../components/images/loadding.gif';
  class product extends Component {
      constructor(props) {
          super(props);
@@ -20,12 +23,21 @@ import { DialogContent } from '@material-ui/core';
              },
              open:false,
              currentPage:1,
-             newsPerPage:10
+             newsPerPage:10,
+             number:0
          }
      }
     render() {
+        const {classes}=this.props;
         var {productStore,ProductMessage}=this.props;
-        var {searchName,onSort,}=this.state;
+        var {searchName,onSort}=this.state;
+        if(!productStore){
+            return <div className="main-right">
+                        <div className={classes.layoutLoading} >
+                            <img alt={loading} src={loading} className={classes.Loading} />
+                        </div>
+                    </div>
+        }
         if(ProductMessage.Product_Delete_Request){
             return <Dialog open={true}>
                         <DialogContent>
@@ -33,18 +45,21 @@ import { DialogContent } from '@material-ui/core';
                         </DialogContent>
                     </Dialog>;
         }
+        if(ProductMessage.Product_Update_Status_Success){
+
+            setTimeout(() => {
+                this.props.resetMessage();
+            }, 1000);
+        }
         if(ProductMessage.Product_Update_Success||ProductMessage.Product_Delete_Success){
             setTimeout(() => {
                 this.props.resetMessage();
             }, 1000);
         }
         productStore=this.onSortData(productStore,onSort);
-        if(productStore){
-            productStore=(productStore && productStore.filter((data)=>{
-                return (data.name.toLowerCase().indexOf(searchName) !== -1);
-            }));
-        }
+        productStore=this.onFilter(productStore,searchName);
         return (
+           <>
             <Product
                 showData={this.showData(productStore)}
                 search={this.search}
@@ -52,7 +67,10 @@ import { DialogContent } from '@material-ui/core';
                 ProductMessage={ProductMessage}
                 showIdPage={this.showIdPage(productStore)}
                 getBy={this.getBy}
+                onClickIdDown={this.onClickIdDown}
+                onClickIdUp={this.onClickIdUp}
             />
+           </>
         )
     }
     onSortRedux=(sort)=>{
@@ -80,16 +98,36 @@ import { DialogContent } from '@material-ui/core';
                 }
             }
         result=idPage.map(number=>{
-            // if(currentPage===number){
-            //     return <li style={{color:"red"}} id={number} >{number}</li>
-            // }else{
-            //     return <li onClick={this.onChose} style={{color:"red"}} id={number} >{number}</li>
-            // }
-            return <li key={number} onClick={this.onChose} className="idPage" id={number} >{number}</li>
+            if(this.state.currentPage===number){
+                return <li key={number} className="idPage active-idPage" style={{backgroundColor:"#007BFF",color:"white"}} id={number} >{number}</li>
+            }else{
+                return <li key={number} className="idPage" onClick={this.onChose}  id={number} >{number}</li>
+            }
         });
         return result;
     }
+    onClickIdDown=()=>{
+        this.setState({
+            currentPage:this.state.currentPage-1
+        });
+    }
+    onClickIdUp=()=>{
+        this.setState({
+            currentPage:this.state.currentPage+1
+        });
+    }
+    onFilter=(data,search)=>{
+        var result=null;
+        if(data){
+            result=data.filter(product=>{
+                return product.name.toLowerCase().indexOf(search)!==-1;
+            })
+        }
+        return result;
+    }
     showData=(products)=>{
+            
+
             var result=null;
             var {currentPage,newsPerPage}=this.state;
             const LastPage=currentPage*newsPerPage;
@@ -107,11 +145,6 @@ import { DialogContent } from '@material-ui/core';
                  />
             }));
            }else{
-                return <Dialog open={true}>
-                            <DialogContent>
-                                <CircularProgress aria-labelledby="simple-dialog-title" />
-                            </DialogContent>
-                        </Dialog>;
            }
         return result;
 
@@ -151,8 +184,12 @@ import { DialogContent } from '@material-ui/core';
            searchName:search
        });
     }
+    onResetMessage=()=>{
+        this.props.resetMessage();
+    }
    componentDidMount(){
-       this.props.resetMessage();
+       this.onResetMessage();
+       document.title="Quản lý danh sách sản phẩm";
    }
 
 }
@@ -182,5 +219,5 @@ firestoreConnect(ownProps=>[
     {
         collection:"products"
     }
-]))
+]),withStyles(styles))
 (product);

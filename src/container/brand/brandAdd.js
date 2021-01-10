@@ -3,32 +3,34 @@ import BrandAdd from './../../components/ManagerBrand/brandAdd/brandAdd';
 import { connect } from 'react-redux';
 import * as actions from './../../actions/brand';
 import { Redirect } from 'react-router-dom';
-import { Dialog, DialogContent, CircularProgress } from '@material-ui/core';
+import { Dialog, DialogContent, CircularProgress,  } from '@material-ui/core';
 
 
  class brandAdd extends Component {
     render() {
         var {BrandMessage}=this.props;
-        if(BrandMessage.Brand_Request){
-            return <Dialog open={true}>
-                        <DialogContent>
-                            <CircularProgress aria-labelledby="simple-dialog-title" />
-                        </DialogContent>
-                    </Dialog>;
-        }
         if(BrandMessage.Brand_Success){
             return <Redirect to="/brand" />
         }
         return (
-
+           <>
+            <Dialog  open={BrandMessage.Brand_Request} >
+                       <DialogContent>
+                        <CircularProgress color="inherit" />
+                       </DialogContent>
+            </Dialog>
            <BrandAdd
                addBrand={this.addBrand}
                BrandMessage={BrandMessage}
            />
+           </>
         )
     }
     addBrand=(brand)=>{
         this.props.addBrand(brand);
+    }
+    componentDidMount(){
+        document.title="Thêm sản phẩm ...";
     }
 }
 const mapStateToProps=(state)=>{

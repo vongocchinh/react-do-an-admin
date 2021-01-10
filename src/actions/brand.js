@@ -1,5 +1,7 @@
 import * as brandType from './../conStants/brand';
 import * as Message from './../conStants/Message';
+import {db} from '../config/config';
+
 
 export const ALL=(brand)=>{
     return{
@@ -7,18 +9,39 @@ export const ALL=(brand)=>{
         brand
     }
 }
+export const BrandAllFirebase=()=>{
+    return (dispatch,getState,{getFirebase})=>{
+        // var brands=[];
+        db.collection("brand").where('brandName','>=','a').get().then(
+            (res)=>{
+                res.forEach((data)=>{
 
-
-
+                })
+                // dispatch(GET_BRAND_ALL(brands));
+            }
+        ).catch(
+            (res)=>{
+                console.log(res);
+            }
+        )
+    }
+}
+export const GET_BRAND_ALL=(brands)=>{
+    return {
+        type:brandType.GET_BRAND_ALL,
+        brands
+    }
+}
 
 // add
 export const AddBrandRequest=(brand={})=>{
     return (dispatch,getState,{getFirebase})=>{
         var firebase=getFirebase().firestore();
-        dispatch(Brand_request());
+        // var brandId=Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
         const {brandName=''}=brand;
         firebase.collection("brand").add({
-            brandName:brandName
+            brandName:brandName,
         }).then(()=>{
             dispatch(addBrand(brand));
             dispatch(Brand_Success());
@@ -58,9 +81,9 @@ export const DeleteBrandRequest=(brand={})=>{
     return (dispatch ,getState,{getFirebase})=>{
         var firebase=getFirebase().firestore();
         dispatch(Brand_Delete_request());
-        const brandId=brand.id;
-        firebase.collection("brand").doc(brandId).delete().then(()=>{
-            dispatch(deleteBrand(brandId));
+        const id=brand.id;
+        firebase.collection("brand").doc(id).delete().then(()=>{
+            dispatch(deleteBrand(id));
             dispatch(Brand_Delete_Success());
         }).catch(()=>{
             dispatch(Brand_Delete_Error());
@@ -101,10 +124,10 @@ export const Brand_Delete_Error=()=>{
 export const UpdateBrandRequest=(brand={})=>{
     return (dispatch,getState,{getFirebase})=>{
         var firebase=getFirebase().firestore();
-        const brandId=brand.brandId;
+        const id=brand.brandId;
         dispatch(Brand_Update_request());
-        firebase.collection("brand").doc(brandId).set({
-            brandId,
+        firebase.collection("brand").doc(id).set({
+            brandId:id,
             brandName:brand.brandName
         }).then(()=>{
             dispatch(updateBrand(brand));

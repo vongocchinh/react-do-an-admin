@@ -12,7 +12,7 @@ export default class reviewCount extends Component {
             </div>
             <div className="middle">
                 <div className="bar-container">
-                <div style={{width:item/10+"%"}} className={"bar-"+(keys+1)}></div>
+                <div style={{width:item+"%"}} className={"bar-"+(keys+1)}></div>
                 </div>
             </div>
             <div className="side right">

@@ -6,7 +6,6 @@ export default class billView extends Component {
     sort=(bill)=>{
         var billNew=null;
         if(bill){
-           
             billNew=bill.slice().sort((a,b)=>{
                 return b.date-a.date;
             })
@@ -37,9 +36,8 @@ export default class billView extends Component {
         }
         return result;
     }
-  
+
     render() {
-        
         return (
             <div className="main-content-table">
                             <p><i className="far fa-calendar-alt" /> Đơn Hàng Mới Nhất</p>
@@ -53,7 +51,6 @@ export default class billView extends Component {
                                         <th className="th-main-table-i">Chi tiết</th>
                                     </tr></thead>
                                    {this.showBillItem(this.props.bill)}
-                                    
                                 </table>
                             </div>
                         </div>

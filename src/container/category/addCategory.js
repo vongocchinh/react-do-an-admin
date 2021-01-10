@@ -26,6 +26,9 @@ class addCategory extends Component {
     addCategory=(categoryADD)=>{
         this.props.addCategory(categoryADD);
     }
+    componentDidMount(){
+        document.title="Thêm sản phẩm ...";
+    }
 }
 
 const dispatchToProps=(dispatch,props)=>{

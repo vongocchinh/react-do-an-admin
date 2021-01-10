@@ -22,10 +22,8 @@ export default class category extends Component {
                         <p className="table-text"><i className="far fa-calendar-alt" /> Danh Sách Category</p>
                     </div>
                     <div className="form-input-search-product">
-                        
                     </div>
                 </div>
-                
                 <div className="hidden-table">
                 <table className="table-main">
                     <thead>
@@ -35,9 +33,11 @@ export default class category extends Component {
                             <th className="th-main-table-s">options</th>
                         </tr>
                     </thead>
-                    
                    {this.props.showCateGory}
                 </table>
+                </div>
+                <div className="pagination-button">
+                    {this.props.showPagination}
                 </div>
             </div>
         </div>

@@ -3,10 +3,8 @@ import { Bar } from "react-chartjs-2";
 
 
 export default class chartLeft extends Component {
-   
     render() {
-        var {product,bill,user}=this.props;
-       
+        var {product,bill,user,viewPage,countContact,newsletter}=this.props;
         return (
             <div className="chart-container-left">
                     <Bar className="chart-combo"
@@ -16,7 +14,8 @@ export default class chartLeft extends Component {
                             "User",
                             "bill",
                             "contact",
-                            "viewPage"
+                            "viewPage",
+                            "newsletter"
                         ],
                         datasets: [
                             {
@@ -26,9 +25,10 @@ export default class chartLeft extends Component {
                                 "#00ACC1",
                                 "#F27BA3",
                                 "#FF9D18",
-                                "#5C6BC0"
+                                "#5C6BC0",
+                                "#666666"
                             ],
-                            data: [product, user,bill, 10, 3]
+                            data: [product, user,bill, countContact, viewPage,newsletter]
                             }
                         ]
                         }}
