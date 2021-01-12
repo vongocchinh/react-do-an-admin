@@ -16,7 +16,6 @@ import loading from '../../components/images/loadding.gif';
      constructor(props) {
          super(props);
          this.state={
-             searchName:'',
              onSort:{
                  sortBy:'',
                  sortValue:1
@@ -29,8 +28,8 @@ import loading from '../../components/images/loadding.gif';
      }
     render() {
         const {classes}=this.props;
-        var {productStore,ProductMessage}=this.props;
-        var {searchName,onSort}=this.state;
+        var {productStore,ProductMessage,DataFilter}=this.props;
+        var {onSort}=this.state;
         if(!productStore){
             return <div className="main-right">
                         <div className={classes.layoutLoading} >
@@ -56,13 +55,13 @@ import loading from '../../components/images/loadding.gif';
                 this.props.resetMessage();
             }, 1000);
         }
+        productStore=this.onFilter(productStore,DataFilter);
         productStore=this.onSortData(productStore,onSort);
-        productStore=this.onFilter(productStore,searchName);
         return (
            <>
             <Product
                 showData={this.showData(productStore)}
-                search={this.search}
+                filter={this.filter}
                 onSortRedux={this.onSortRedux}
                 ProductMessage={ProductMessage}
                 showIdPage={this.showIdPage(productStore)}
@@ -117,17 +116,21 @@ import loading from '../../components/images/loadding.gif';
         });
     }
     onFilter=(data,search)=>{
-        var result=null;
         if(data){
-            result=data.filter(product=>{
-                return product.name.toLowerCase().indexOf(search)!==-1;
-            })
+           if(search){
+                if(search.name){
+                    data=data.filter(product=>{
+                        return product.name.toLowerCase().indexOf(search.name)!==-1;
+                    });
+                    return data;
+                }
+           }else{
+               return data;
+           }
         }
-        return result;
+        return data;
     }
     showData=(products)=>{
-            
-
             var result=null;
             var {currentPage,newsPerPage}=this.state;
             const LastPage=currentPage*newsPerPage;
@@ -179,10 +182,8 @@ import loading from '../../components/images/loadding.gif';
     onStatus=(product)=>{
         this.props.onStatus(product);
     }
-    search=(search)=>{
-       this.setState({
-           searchName:search
-       });
+    filter=(filter)=>{
+     this.props.FILTER_DATA_PRODUCT(filter);
     }
     onResetMessage=()=>{
         this.props.resetMessage();
@@ -197,7 +198,8 @@ const mapStateToProps=(state)=>{
     return{
         productStore:state.getFirestore.ordered.products,
         product:state.Products,
-        ProductMessage:state.ProductMessage
+        ProductMessage:state.ProductMessage,
+        DataFilter:state.DataFilter
     }
 }
 const dispatchToProps=(dispatch,props)=>{
@@ -210,6 +212,9 @@ const dispatchToProps=(dispatch,props)=>{
         },
         resetMessage:()=>{
             dispatch(actions.ResetMessage());
+        },
+        FILTER_DATA_PRODUCT:(filter)=>{
+            dispatch(actions.FILTER_DATA_PRODUCT(filter))
         }
     }
 }

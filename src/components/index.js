@@ -14,7 +14,7 @@ export default class index extends Component {
                             <div className="clear " />
                         {this.props.chart}
                             <div className="clear " />
-                                   
+                        {this.props.billLineCharts}
                             <div className="clear " />
                         <BillView 
                             bill={this.props.bill}

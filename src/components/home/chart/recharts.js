@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { Bar } from "react-chartjs-2";
-
-
-export default class chartLeft extends Component {
+import { Line } from "react-chartjs-2";
+class recharts extends Component {
     render() {
         var {product,bill,user,viewPage,countContact,newsletter}=this.props;
         return (
-            <div className="chart-container-left">
-                    <Bar className="chart-combo"
+            <div className="chart-container-center-rechart">
+                    <Line className="charts"
                         data={{
                         labels: [
                             "Product",
@@ -44,3 +42,5 @@ export default class chartLeft extends Component {
         )
     }
 }
+
+export default recharts;

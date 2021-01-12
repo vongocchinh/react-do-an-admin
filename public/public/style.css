@@ -294,7 +294,7 @@
     
     .col-main2 {
         background-color: #F2D439;
-        background-image: linear-gradient(to bottom right, red, yellow);
+        background-image: linear-gradient(to bottom right, #018DE4, yellow);
     }
     
     .col-main3 {
@@ -412,8 +412,8 @@
     }
     
     .col-main6 {
-        background-color: #BB4A3A;
-        background-image: linear-gradient(to bottom right, #BB4A3A, #AA7174);
+        background-color: #018DE4;
+        background-image: linear-gradient(to bottom right, #018DE4, #82BEE6);
     }
     
     .col-main4 {
@@ -694,6 +694,25 @@
         align-items: center;
        
     }
+    .chart-container-center{
+        width: 96%;
+        height: 500px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 2%;
+        margin-right: 2%;
+       
+    }
+    .chart-container-center-rechart{
+        width: 90%;
+        height: 100%;
+    }
+    .chart-container-center-rechart .charts{
+        width: 90%;
+        height: 300px;
+    }
     .chart-container-right{
         width: 48%;
         height: 300px;
@@ -721,6 +740,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .chart-container-center{
+            width: 96%;
+            height: auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2%;
+            margin-right: 2%;
+           
         }
         .chart-container-right{
             width: 100%;
@@ -756,6 +786,17 @@
             justify-content: center;
             align-items: center;
         }
+        .chart-container-center{
+            width: 96%;
+            height: 250px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2%;
+            margin-right: 2%;
+           
+        }
         .chart-container-right{
             width: 100%;
             height: 100%;
@@ -788,6 +829,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+        .chart-container-center{
+            width: 96%;
+            height: 200px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2%;
+            margin-right: 2%;
+           
         }
         .chart-container-right{
             width: 100%;
@@ -866,6 +918,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+    }
+
+    @media screen and (max-width:1000px){
+        .chart-container-center{
+            width: 96%;
+            height: 400px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2%;
+            margin-right: 2%;
         }
     }
 
@@ -1701,3 +1766,6 @@ Button.btnSubmit-admin{
     }
 }
 
+.form-search{
+    margin-right: 10px;
+}

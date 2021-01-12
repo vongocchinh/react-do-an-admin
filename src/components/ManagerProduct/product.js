@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddProduct from "./control/addProduct";
-// import Search from './control/search';
+import Filter from './control/filter';
 import Sort from "./control/sort";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -54,10 +54,10 @@ class product extends Component {
             <div className="form-top-product">
               <AddProduct />
               <div className="form-input-search-product">
+                <Filter 
+                      search={this.props.filter}
+                            />
                 <Sort onSortRedux={this.props.onSortRedux} />
-                {/* <Search 
-                                search={this.props.search}
-                            /> */}
               </div>
             </div>
             <div className="hidden-table">

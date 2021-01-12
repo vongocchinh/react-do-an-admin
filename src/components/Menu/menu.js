@@ -25,7 +25,7 @@ export default class menu extends Component {
                     <div className="overflow-main" id="style-1">
                     <h4 className="menu-text menu-text-h4">INTERFACE</h4>
                     <li className="menu-item">
-                        <a href="###" className="text-menu-item"><img alt="###" src={Category} />Quản lý danh mục</a>
+                        <a href="###" className="text-menu-item"><img alt="###" src={Category} />Category</a>
                     </li>
                     <div className="panel">
                         <span>
@@ -36,7 +36,7 @@ export default class menu extends Component {
                         </span>
                     </div>
                     <li className="menu-item ">
-                        <a href="###" className="text-menu-item"><img alt="###" src={FromImg} />Quan lý thêm</a>
+                        <a href="###" className="text-menu-item"><img alt="###" src={FromImg} />Tables Forms</a>
                     </li>
                     <div className="panel">
                         <span>
@@ -47,7 +47,7 @@ export default class menu extends Component {
                         </span>
                     </div>
                     <li className="menu-item ">
-                        <a href="###" className="text-menu-item"><img alt="###" src={IconMenu} />Quản Lý khách hàng</a>
+                        <a href="###" className="text-menu-item"><img alt="###" src={IconMenu} />Table Users</a>
                     </li>
                     <div className="panel">
                         <span>
@@ -57,21 +57,21 @@ export default class menu extends Component {
                         </span>
                     </div>
                     <li className="menu-item ">
-                        <a href="###" className="text-menu-item"><img alt="###" src={billImages} />Quản Lý Đơn Hàng</a>
+                        <a href="###" className="text-menu-item"><img alt="###" src={billImages} />Bill</a>
                     </li>
                     <div className="panel">
                         <span>
-                             <Link to="/bill" >Đơn hàng</Link>
-                             <Link to="/ordered">Đơn hàng đang giao</Link>
-                             <Link to="/ordersDelivered" >Đơn hàng đã giao</Link>
-                             <Link to="/orderConfirmation">Đơn hàng đã xác nhận</Link>
+                             <Link to="/bill" >Bill</Link>
+                             <Link to="/ordered">Bill Deliveres</Link>
+                             <Link to="/ordersDelivered" >Bill Delivered</Link>
+                             <Link to="/orderConfirmation">Bill Confirmed</Link>
                         </span>
                     </div>
                     </div>
 
                     <h4 className="menu-text"> MULTI LEVEL EXAMPLE</h4>
                     <li className="menu-item ">
-                    <a href="###" className="text-menu-item"><img alt="###" src={iconAdmin} />Quản lý page</a>
+                    <a href="###" className="text-menu-item"><img alt="###" src={iconAdmin} />Pages</a>
                     </li>
                     <div className="panel">
                         <span>

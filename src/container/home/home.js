@@ -9,7 +9,7 @@ import Loading from '../../components/images/loadding.gif';
 import Chart from './../../components/home/chart';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
-
+import BillLineChart from '../../components/home/recharts/lineCharts/bill';
 
 
  class home extends Component {
@@ -21,6 +21,7 @@ import styles from './styles';
                 totalProduct={this.totalProduct(productStore,userClient,bill)}
                 bill={bill}
                 chart={this.chart(productStore,bill,userClient,brand,ViewPage,ContactFirebase,newsletter)}
+                billLineCharts={this.billLineCharts(bill)}
            />
         )
     }
@@ -59,6 +60,40 @@ import styles from './styles';
                 <img alt={Loading} src={Loading} className={classes.Loading} />
             </div>
        }
+    }
+    billLineCharts=(bill)=>{
+        const {classes}=this.props;
+        let XHTML=null;
+        var date=new Date().toDateString();
+        var count=0;
+        var arr=[];
+        for(let i=0;i<arr.length;i++){
+            if(arr[i].date!==date){
+                var dates={
+                    date:date,
+                    count:0
+                }
+                    arr.push(dates);
+            }
+        }
+        if(bill){
+            for(let i=0;i<bill.length;i++){
+                var dateBill=(new Date(bill[i].date.seconds*1000).toDateString());
+                if(date===dateBill){
+                    // console.log(bill[i]);
+                    count++;
+                }
+            }
+            XHTML=(
+                <BillLineChart bill={bill} />
+            )
+        }else{
+            XHTML=<div className={classes.layoutLoading} >
+                        <img alt={Loading} src={Loading} className={classes.Loading} />
+                    </div>
+        }
+        console.log(arr);
+        return XHTML;
     }
     sale=(product)=>{
         var count =0;

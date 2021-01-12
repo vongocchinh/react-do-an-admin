@@ -5,6 +5,7 @@ import { firestoreReducer } from 'redux-firestore';
 import Brand from './brand/brand';
 import Category from './category/category';
 import Products from './product/product';
+import DataFilter from './product/filterData';
 import Admin from './admin/admin';
 import BrandMessage from './brand/brandMessage';
 import CategoryMessage from './category/categoryMessage';
@@ -28,6 +29,7 @@ var myReducer=combineReducers({
     Slides,
     UserAdmin,
     Register,
-    GetBrand
+    GetBrand,
+    DataFilter
 });
 export default myReducer;

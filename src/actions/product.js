@@ -322,3 +322,11 @@ export const UPDATE_PRODUCT_Bill=(product,quantityBill)=>{
         })
     }
 }
+
+
+export const FILTER_DATA_PRODUCT=(filter)=>{
+    return {
+        type:type.FILTER_DATA,
+        filter
+    }
+}

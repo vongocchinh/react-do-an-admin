@@ -8,7 +8,6 @@ export default class sort extends Component {
             sortValue:sortValue
         }
         this.props.onSortRedux(sort);
-       
     }
 
     render() {
@@ -19,11 +18,11 @@ export default class sort extends Component {
                     SortProduct
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                        <Dropdown.Item  onClick={()=>this.onSort('name',1)}>Từ A-z</Dropdown.Item>
-                        <Dropdown.Item  onClick={()=>this.onSort('name',-1)}>Từ Z-A</Dropdown.Item>
+                        <Dropdown.Item  onClick={()=>this.onSort('name',1)}>A-Z</Dropdown.Item>
+                        <Dropdown.Item  onClick={()=>this.onSort('name',-1)}>Z-A</Dropdown.Item>
                         <hr/>
-                        <Dropdown.Item  onClick={()=>this.onSort('status',1)}>Theo Status +</Dropdown.Item>
-                        <Dropdown.Item  onClick={()=>this.onSort('status',-1)}>Theo Status -</Dropdown.Item>
+                        <Dropdown.Item  onClick={()=>this.onSort('status',1)}>Hide</Dropdown.Item>
+                        <Dropdown.Item  onClick={()=>this.onSort('status',-1)}>Show</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 
