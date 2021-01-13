@@ -11,7 +11,7 @@ export default class billIte extends Component {
             <tbody>
 
             <tr>
-                <td>{stt}</td>
+                <td>{stt+1}</td>
                 <td>{bill.name}</td>
                 <td>{Format.quantityBill(bill.cart)}</td>
                 <td>

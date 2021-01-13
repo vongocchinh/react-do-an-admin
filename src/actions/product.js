@@ -1,7 +1,7 @@
 import * as type from './../conStants/product';
 import {storage} from './../config/config';
 import * as Message from './../conStants/Message';
-
+import {db} from './../config/config';
 export const ALL_PRODUCT=(product)=>{
     return{
         type:type.ALL_PRODUCT,
@@ -325,8 +325,44 @@ export const UPDATE_PRODUCT_Bill=(product,quantityBill)=>{
 
 
 export const FILTER_DATA_PRODUCT=(filter)=>{
+  return {
+    type:type.FILTER_DATA,
+    filter
+}
+}
+
+
+export const DELETE_REVIEW=(id)=>{
+    return (dispatch,getState,{getFirebase})=>{
+        dispatch(DELETE_REVIEW_IN());
+        db.collection('reviews').doc(id).delete().then(res=>{
+            dispatch(DELETE_REVIEW_SUCCESS());
+        }).catch(err=>{
+            dispatch(DELETE_REVIEW_ERR());
+        })
+    }
+}
+
+export const DELETE_REVIEW_SUCCESS=()=>{
     return {
-        type:type.FILTER_DATA,
-        filter
+        type:type.DELETE_REVIEW_SUCCESS
+    }
+}
+
+export const DELETE_REVIEW_IN=()=>{
+    return {
+        type:type.DELETE_REVIEW_IN
+    }
+}
+
+export const DELETE_REVIEW_ERR=()=>{
+    return {
+        type:type.DELETE_REVIEW_ERR
+    }
+}
+
+export const resetReview=()=>{
+    return {
+        type:type.RESET_REVIEW
     }
 }

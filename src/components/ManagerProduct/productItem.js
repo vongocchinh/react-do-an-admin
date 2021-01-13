@@ -62,10 +62,12 @@ export default class productItem extends Component {
           <tr>
             <td>{keys + 1}</td>
             <td>{product.name}</td>
-            <td style={{ height: "100px", width: "90px" }}>
+            <td style={{ height: "100px", width: "90px" ,borderStyle:"solid",borderWidth:"1px",borderColor:"#DFDFDF",
+            margin:"5px",
+            borderRadius:"3px"}}>
               <img
                 alt={product.images1}
-                style={{ height: "100px", width: "90px" }}
+                style={{ height: "80px", width: "80px" ,}}
                 src={product.images1}
               />
             </td>

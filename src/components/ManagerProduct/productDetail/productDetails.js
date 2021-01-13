@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 class productDetails extends Component {
     render() {
         return (
@@ -14,7 +13,6 @@ class productDetails extends Component {
                     <table className="table-main">
                     <thead>
                         <tr>
-                        {/* <th className="th-main-table-i">ID</th> */}
                         <th className="th-main-table-n">Tên Sản phẩm</th>
                         <th className="th-main-table-i">Tên Hãng</th>
                         <th className="th-main-table-i">Tên Mặt hàng</th>
@@ -22,7 +20,7 @@ class productDetails extends Component {
                         <th className="th-main-table-d">Giá Bán</th>
                         <th className="th-main-table-o">Giá sale</th>
                         <th className="th-main-table-s">Trạng Thái</th>
-                        
+
                         </tr></thead>
                     {this.props.showItem1}
                     </table>
@@ -50,8 +48,11 @@ class productDetails extends Component {
                 {this.props.review}
                 <p className="des-product">Review-detail</p>
                 {this.props.showReviewDetail}
+                <hr/>
+                    <div style={{display:"flex",justifyContent:"center"}}>
+                        {this.props.showPagination}
+                    </div>
                 </div>
-                
             </div>
         )
     }

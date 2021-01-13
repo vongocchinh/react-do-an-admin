@@ -6,6 +6,7 @@ import Brand from './brand/brand';
 import Category from './category/category';
 import Products from './product/product';
 import DataFilter from './product/filterData';
+import Review from './product/review';
 import Admin from './admin/admin';
 import BrandMessage from './brand/brandMessage';
 import CategoryMessage from './category/categoryMessage';
@@ -30,6 +31,6 @@ var myReducer=combineReducers({
     UserAdmin,
     Register,
     GetBrand,
-    DataFilter
+    DataFilter,Review
 });
 export default myReducer;

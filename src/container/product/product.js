@@ -12,6 +12,7 @@ import { DialogContent } from '@material-ui/core';
 import { withStyles } from '@material-ui/core';
 import styles from './styles/styles';
 import loading from '../../components/images/loadding.gif';
+
  class product extends Component {
      constructor(props) {
          super(props);
@@ -183,7 +184,7 @@ import loading from '../../components/images/loadding.gif';
         this.props.onStatus(product);
     }
     filter=(filter)=>{
-     this.props.FILTER_DATA_PRODUCT(filter);
+        this.props.FILTER_DATA_PRODUCT(filter);
     }
     onResetMessage=()=>{
         this.props.resetMessage();

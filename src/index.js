@@ -10,10 +10,13 @@ import thunk from 'redux-thunk';
 import {applyMiddleware, createStore ,compose} from 'redux';
 import { getFirebase ,ReactReduxFirebaseProvider} from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
+import createSagaMiddleware  from 'redux-saga'
+import rootSaga from './saga/index';
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const sagaMiddleware=createSagaMiddleware();
 const store=createStore(
   myReducer,
-  composeEnhancer(applyMiddleware(thunk.withExtraArgument({getFirebase})))
+  composeEnhancer(applyMiddleware(thunk.withExtraArgument({getFirebase}),sagaMiddleware))
 );
  const fbProps={
    firebase,
@@ -30,6 +33,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
+sagaMiddleware.run(rootSaga);
 
 serviceWorker.unregister();

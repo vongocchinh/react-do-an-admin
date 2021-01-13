@@ -10,7 +10,7 @@ import Chart from './../../components/home/chart';
 import { withStyles } from '@material-ui/core';
 import styles from './styles';
 import BillLineChart from '../../components/home/recharts/lineCharts/bill';
-
+import * as action from '../../actions/countBillDay';
 
  class home extends Component {
      render() {
@@ -22,8 +22,12 @@ import BillLineChart from '../../components/home/recharts/lineCharts/bill';
                 bill={bill}
                 chart={this.chart(productStore,bill,userClient,brand,ViewPage,ContactFirebase,newsletter)}
                 billLineCharts={this.billLineCharts(bill)}
+                countBillDay={this.countBillDay}
            />
         )
+    }
+    countBillDay=(value)=>{
+        this.props.ADD_COUNT_BILL_DAY(value);
     }
     chart=(product,bill,user,brand,viewPage,ContactFirebase,newsletter)=>{
         const {classes}=this.props;
@@ -65,7 +69,7 @@ import BillLineChart from '../../components/home/recharts/lineCharts/bill';
         const {classes}=this.props;
         let XHTML=null;
         var date=new Date().toDateString();
-        var count=0;
+        // var count=0;
         var arr=[];
         for(let i=0;i<arr.length;i++){
             if(arr[i].date!==date){
@@ -81,7 +85,7 @@ import BillLineChart from '../../components/home/recharts/lineCharts/bill';
                 var dateBill=(new Date(bill[i].date.seconds*1000).toDateString());
                 if(date===dateBill){
                     // console.log(bill[i]);
-                    count++;
+                    // count++;
                 }
             }
             XHTML=(
@@ -92,7 +96,7 @@ import BillLineChart from '../../components/home/recharts/lineCharts/bill';
                         <img alt={Loading} src={Loading} className={classes.Loading} />
                     </div>
         }
-        console.log(arr);
+        // console.log(arr);
         return XHTML;
     }
     sale=(product)=>{
@@ -123,7 +127,9 @@ const mapStateToProps=(state)=>{
 }
 const dispatchToProps=(dispatch,props)=>{
     return{
-       
+        ADD_COUNT_BILL_DAY:(value)=>{
+            dispatch(action.ADD_COUNT_BILL_DAY(value));
+        }
     }
 }
 export default 

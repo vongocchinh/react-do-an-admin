@@ -15,7 +15,7 @@ export default class sort extends Component {
             <>
                 <Dropdown className="dropDown-button">
                     <Dropdown.Toggle variant="success" id="dropdown-basic" className="mr-3 button-blue">
-                    SortProduct
+                    Sort
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item  onClick={()=>this.onSort('name',1)}>A-Z</Dropdown.Item>

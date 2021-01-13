@@ -18,6 +18,7 @@ export default class index extends Component {
                             <div className="clear " />
                         <BillView 
                             bill={this.props.bill}
+                            countBillDay={this.props.countBillDay}
                         />
                             <div className="clear " />
                         <Page/>
